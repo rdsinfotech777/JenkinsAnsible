@@ -1,0 +1,1629 @@
+
+rohandiya@DESKTOP-UT80NO4 MINGW64 ~
+$  cd vagrant
+
+rohandiya@DESKTOP-UT80NO4 MINGW64 ~/vagrant
+$ ls -la
+total 24
+drwxr-xr-x 1 rohandiya 197121    0 Nov 28 14:07 ./
+drwxr-xr-x 1 rohandiya 197121    0 Dec  9 13:44 ../
+drwxr-xr-x 1 rohandiya 197121    0 Nov 28 14:07 .vagrant/
+-rw-r--r-- 1 rohandiya 197121 4746 Nov 28 15:31 Vagrantfile
+
+rohandiya@DESKTOP-UT80NO4 MINGW64 ~/vagrant
+$ vagrant up
+Bringing machine 'master' up with 'virtualbox' provider...
+Bringing machine 'target1' up with 'virtualbox' provider...
+Bringing machine 'target2' up with 'virtualbox' provider...
+==> master: Checking if box 'centos/8' version '1905.1' is up to date...
+==> master: Machine already provisioned. Run `vagrant provision` or use the `--provision`
+==> master: flag to force provisioning. Provisioners marked to run always will still run.
+==> target1: Checking if box 'centos/8' version '1905.1' is up to date...
+==> target1: Machine already provisioned. Run `vagrant provision` or use the `--provision`
+==> target1: flag to force provisioning. Provisioners marked to run always will still run.
+==> target2: Checking if box 'centos/8' version '1905.1' is up to date...
+==> target2: Machine already provisioned. Run `vagrant provision` or use the `--provision`
+==> target2: flag to force provisioning. Provisioners marked to run always will still run.
+
+rohandiya@DESKTOP-UT80NO4 MINGW64 ~/vagrant
+$ vagrant ssh master
+Last login: Wed Dec  9 13:49:54 2020 from 10.0.2.2
+[vagrant@master ~]$ su -
+Password:
+
+su: Authentication failure
+[vagrant@master ~]$
+[vagrant@master ~]$ sudo su -
+Last login: Wed Dec  9 14:18:31 UTC 2020 on pts/0
+Last failed login: Fri Dec 11 03:24:33 UTC 2020 on pts/1
+There was 1 failed login attempt since the last successful login.
+[root@master ~]# ls -la
+total 40
+dr-xr-x---.  3 root root  174 Nov 28 17:10 .
+dr-xr-xr-x. 18 root root  255 Nov 28 15:27 ..
+-rw-------.  1 root root 5239 Oct 25  2019 anaconda-ks.cfg
+drwx------.  3 root root   17 Nov 28 17:10 .ansible
+-rw-------.  1 root root  429 Dec  1 00:34 .bash_history
+-rw-r--r--.  1 root root   18 May 11  2019 .bash_logout
+-rw-r--r--.  1 root root  176 May 11  2019 .bash_profile
+-rw-r--r--.  1 root root  176 May 11  2019 .bashrc
+-rw-r--r--.  1 root root  100 May 11  2019 .cshrc
+-rw-------.  1 root root 5053 Oct 25  2019 original-ks.cfg
+-rw-r--r--.  1 root root  129 May 11  2019 .tcshrc
+[root@master ~]# sudo service jenkins status
+● jenkins.service - LSB: Jenkins Automation Server
+   Loaded: loaded (/etc/rc.d/init.d/jenkins; generated)
+   Active: active (running) since Wed 2020-12-09 14:19:47 UTC; 1 day 13h ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 2328 ExecStop=/etc/rc.d/init.d/jenkins stop (code=exited, status=0/S>
+  Process: 2343 ExecStart=/etc/rc.d/init.d/jenkins start (code=exited, status=0>
+    Tasks: 39 (limit: 6107)
+   Memory: 465.8M
+   CGroup: /system.slice/jenkins.service
+           └─2365 /etc/alternatives/java -Dcom.sun.akuma.Daemon=daemonized -Dja>
+
+Dec 09 14:19:44 master systemd[1]: Stopped LSB: Jenkins Automation Server.
+Dec 09 14:19:44 master systemd[1]: Starting LSB: Jenkins Automation Server...
+Dec 09 14:19:44 master runuser[2351]: pam_unix(runuser:session): session opened>
+Dec 09 14:19:47 master runuser[2351]: pam_unix(runuser:session): session closed>
+Dec 09 14:19:47 master jenkins[2343]: [30B blob data]
+Dec 09 14:19:47 master systemd[1]: Started LSB: Jenkins Automation Server.
+[root@master ~]# ssh 10.10.10.101
+The authenticity of host '10.10.10.101 (10.10.10.101)' can't be established.
+ECDSA key fingerprint is SHA256:gDq8sWY9jgBwbJS4EuVOdxVv+FBOSqJX5Nzio5w0omI.
+Are you sure you want to continue connecting (yes/no)? no
+Host key verification failed.
+[root@master ~]# sudo su - ansible
+Last login: Wed Dec  9 14:04:28 UTC 2020 from 10.10.10.100 on pts/2
+[ansible@master ~]$ ssh 10.10.10.101
+Last login: Mon Nov 30 22:48:13 2020
+[ansible@target1 ~]$ sudo su -
+Last login: Mon Nov 30 22:48:08 UTC 2020 on pts/0
+[root@target1 ~]# cd /home
+[root@target1 home]# ls -la
+total 0
+drwxr-xr-x.  4 root    root     36 Nov 28 17:56 .
+dr-xr-xr-x. 18 root    root    255 Nov 28 15:28 ..
+drwx------.  4 ansible ansible 127 Nov 29 14:01 ansible
+drwx------.  3 vagrant vagrant  95 Nov 28 17:27 vagrant
+[root@target1 home]# cd ansible
+[root@target1 ansible]# ls -la
+total 20
+drwx------. 4 ansible ansible 127 Nov 29 14:01 .
+drwxr-xr-x. 4 root    root     36 Nov 28 17:56 ..
+drwx------. 3 ansible ansible  17 Nov 29 13:16 .ansible
+-rw-------. 1 ansible ansible 356 Dec  1 00:04 .bash_history
+-rw-r--r--. 1 ansible ansible  18 May 11  2019 .bash_logout
+-rw-r--r--. 1 ansible ansible 141 May 11  2019 .bash_profile
+-rw-r--r--. 1 ansible ansible 312 May 11  2019 .bashrc
+-rw-------. 1 ansible ansible  28 Nov 29 14:01 .lesshst
+drwx------. 2 ansible ansible  29 Dec  1 00:04 .ssh
+[root@target1 ansible]# exit
+logout
+[ansible@target1 ~]$
+[ansible@target1 ~]$ exit
+logout
+Connection to 10.10.10.101 closed.
+[ansible@master ~]$ ls -la
+total 44
+drwx------. 7 ansible ansible  260 Nov 30 23:14 .
+drwxr-xr-x. 4 root    root      36 Nov 28 16:39 ..
+drwx------. 4 ansible ansible   27 Nov 29 13:16 .ansible
+-rw-rw-r--. 1 ansible ansible   66 Nov 29 13:27 apache.yml
+-rw-------. 1 ansible ansible 4105 Dec 11 03:42 .bash_history
+-rw-r--r--. 1 ansible ansible   18 May 11  2019 .bash_logout
+-rw-r--r--. 1 ansible ansible  141 May 11  2019 .bash_profile
+-rw-r--r--. 1 ansible ansible  312 May 11  2019 .bashrc
+-rw-rw-r--. 1 ansible ansible   51 Nov 28 16:57 .gitconfig
+drwxrwxr-x. 2 ansible ansible   19 Nov 30 22:37 inventory
+-rw-rw-r--. 1 ansible ansible   64 Nov 30 22:36 java.yml
+-rw-rw-r--. 1 ansible ansible   66 Nov 30 23:14 jenkins.yml
+-rw-rw-r--. 1 ansible ansible   85 Nov 29 21:36 mkdir.yml
+drwxrwxr-x. 6 ansible ansible   60 Nov 30 21:26 roles
+drwx------. 2 ansible ansible   80 Nov 30 22:51 .ssh
+-rw-rw-r--. 1 ansible ansible  203 Nov 29 13:17 test.yml
+drwxrwxr-x. 3 ansible ansible   54 Nov 28 16:55 vagrant
+[ansible@master ~]$ cd
+[ansible@master ~]$ cd ..
+[ansible@master home]$ cd ..
+[ansible@master /]$ cd ..
+[ansible@master /]$ sudo su -
+Last login: Fri Dec 11 03:24:41 UTC 2020 on pts/1
+[root@master ~]# cd /home
+[root@master home]# ls -la
+total 0
+drwxr-xr-x.  4 root    root     36 Nov 28 16:39 .
+dr-xr-xr-x. 18 root    root    255 Nov 28 15:27 ..
+drwx------.  7 ansible ansible 260 Nov 30 23:14 ansible
+drwx------.  4 vagrant vagrant 138 Nov 29 12:53 vagrant
+[root@master home]# cd /var/lib/jenkins
+[root@master jenkins]# ls -la
+total 68
+drwxr-xr-x. 15 jenkins jenkins 4096 Dec  9 15:37 .
+drwxr-xr-x. 33 root    root    4096 Nov 30 23:45 ..
+drwxr-xr-x.  3 jenkins jenkins   17 Nov 30 23:45 .cache
+-rw-r--r--.  1 jenkins jenkins 1642 Dec  9 14:25 config.xml
+drwxr-xr-x.  3 jenkins jenkins   20 Dec  9 14:24 .groovy
+-rw-r--r--.  1 jenkins jenkins  156 Dec  9 14:20 hudson.model.UpdateCenter.xml
+-rw-r--r--.  1 jenkins jenkins  370 Dec  9 14:24 hudson.plugins.git.GitTool.xml
+-rw-------.  1 jenkins jenkins 1712 Nov 30 23:46 identity.key.enc
+drwxr-xr-x.  3 jenkins jenkins   19 Nov 30 23:46 .java
+-rw-r--r--.  1 jenkins jenkins    5 Dec  9 14:25 jenkins.install.InstallUtil.lastExecVersion
+-rw-r--r--.  1 jenkins jenkins    5 Dec  9 14:25 jenkins.install.UpgradeWizard.state
+drwxr-xr-x.  2 jenkins jenkins   89 Dec  9 14:37 jenkins-jobs
+-rw-r--r--.  1 jenkins jenkins  182 Dec  9 14:25 jenkins.model.JenkinsLocationConfiguration.xml
+-rw-r--r--.  1 jenkins jenkins  171 Nov 30 23:46 jenkins.telemetry.Correlator.xml
+drwxr-xr-x.  2 jenkins jenkins    6 Nov 30 23:46 jobs
+-rw-r--r--.  1 jenkins jenkins    0 Dec  9 14:20 .lastStarted
+drwxr-xr-x.  3 jenkins jenkins   19 Nov 30 23:46 logs
+-rw-r--r--.  1 jenkins jenkins  907 Dec  9 14:20 nodeMonitors.xml
+drwxr-xr-x.  2 jenkins jenkins    6 Nov 30 23:46 nodes
+-rw-r--r--.  1 jenkins jenkins   39 Dec 11 03:54 .owner
+drwxr-xr-x. 87 jenkins jenkins 8192 Dec  9 14:35 plugins
+-rw-r--r--.  1 jenkins jenkins  129 Dec  9 14:19 queue.xml.bak
+-rw-r--r--.  1 jenkins jenkins   64 Nov 30 23:46 secret.key
+-rw-r--r--.  1 jenkins jenkins    0 Nov 30 23:46 secret.key.not-so-secret
+drwx------.  4 jenkins jenkins  263 Dec  9 14:28 secrets
+drwxr-xr-x.  2 jenkins jenkins  182 Dec  9 14:23 updates
+drwxr-xr-x.  2 jenkins jenkins   24 Nov 30 23:46 userContent
+drwxr-xr-x.  3 jenkins jenkins   57 Dec  9 14:25 users
+drwxr-xr-x.  2 jenkins jenkins    6 Dec  9 14:23 workflow-libs
+[root@master jenkins]# cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+operator:x:11:0:operator:/root:/sbin/nologin
+games:x:12:100:games:/usr/games:/sbin/nologin
+ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+nobody:x:65534:65534:Kernel Overflow User:/:/sbin/nologin
+dbus:x:81:81:System message bus:/:/sbin/nologin
+systemd-coredump:x:999:997:systemd Core Dumper:/:/sbin/nologin
+systemd-resolve:x:193:193:systemd Resolver:/:/sbin/nologin
+tss:x:59:59:Account used by the trousers package to sandbox the tcsd daemon:/dev/null:/sbin/nologin
+polkitd:x:998:996:User for polkitd:/:/sbin/nologin
+rpc:x:32:32:Rpcbind Daemon:/var/lib/rpcbind:/sbin/nologin
+unbound:x:997:994:Unbound DNS resolver:/etc/unbound:/sbin/nologin
+sssd:x:996:992:User for sssd:/:/sbin/nologin
+rpcuser:x:29:29:RPC Service User:/var/lib/nfs:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
+chrony:x:995:991::/var/lib/chrony:/sbin/nologin
+vagrant:x:1000:1000::/home/vagrant:/bin/bash
+ansible:x:1001:1001::/home/ansible:/bin/bash
+jenkins:x:994:990:Jenkins Automation Server:/var/lib/jenkins:/bin/false
+[root@master jenkins]# ^C
+[root@master jenkins]# cd ..
+[root@master lib]# sudo su - ansible
+Last login: Fri Dec 11 03:47:56 UTC 2020 on pts/1
+[ansible@master ~]$ ls -la
+total 44
+drwx------. 7 ansible ansible  260 Nov 30 23:14 .
+drwxr-xr-x. 4 root    root      36 Nov 28 16:39 ..
+drwx------. 4 ansible ansible   27 Nov 29 13:16 .ansible
+-rw-rw-r--. 1 ansible ansible   66 Nov 29 13:27 apache.yml
+-rw-------. 1 ansible ansible 4105 Dec 11 03:42 .bash_history
+-rw-r--r--. 1 ansible ansible   18 May 11  2019 .bash_logout
+-rw-r--r--. 1 ansible ansible  141 May 11  2019 .bash_profile
+-rw-r--r--. 1 ansible ansible  312 May 11  2019 .bashrc
+-rw-rw-r--. 1 ansible ansible   51 Nov 28 16:57 .gitconfig
+drwxrwxr-x. 2 ansible ansible   19 Nov 30 22:37 inventory
+-rw-rw-r--. 1 ansible ansible   64 Nov 30 22:36 java.yml
+-rw-rw-r--. 1 ansible ansible   66 Nov 30 23:14 jenkins.yml
+-rw-rw-r--. 1 ansible ansible   85 Nov 29 21:36 mkdir.yml
+drwxrwxr-x. 6 ansible ansible   60 Nov 30 21:26 roles
+drwx------. 2 ansible ansible   80 Nov 30 22:51 .ssh
+-rw-rw-r--. 1 ansible ansible  203 Nov 29 13:17 test.yml
+drwxrwxr-x. 3 ansible ansible   54 Nov 28 16:55 vagrant
+[ansible@master ~]$ cd roles
+[ansible@master roles]$ ls -la
+total 0
+drwxrwxr-x. 6 ansible ansible  60 Nov 30 21:26 .
+drwx------. 7 ansible ansible 260 Nov 30 23:14 ..
+drwxrwxr-x. 6 ansible ansible  65 Nov 29 13:20 apache
+drwxrwxr-x. 6 ansible ansible  65 Nov 30 21:32 java
+drwxrwxr-x. 6 ansible ansible  65 Nov 30 23:10 jenkins
+drwxrwxr-x. 6 ansible ansible  65 Nov 29 20:48 mkdir
+[ansible@master roles]$ cd jenkins
+[ansible@master jenkins]$ ls -la
+total 0
+drwxrwxr-x. 6 ansible ansible 65 Nov 30 23:10 .
+drwxrwxr-x. 6 ansible ansible 60 Nov 30 21:26 ..
+drwxrwxr-x. 2 ansible ansible  6 Nov 30 23:10 defaults
+drwxrwxr-x. 2 ansible ansible  6 Nov 30 23:10 files
+drwxrwxr-x. 2 ansible ansible 22 Dec  1 00:02 tasks
+drwxrwxr-x. 2 ansible ansible  6 Nov 30 23:10 templates
+[ansible@master jenkins]$ cd defaults/
+[ansible@master defaults]$ ls -la
+total 0
+drwxrwxr-x. 2 ansible ansible  6 Nov 30 23:10 .
+drwxrwxr-x. 6 ansible ansible 65 Nov 30 23:10 ..
+[ansible@master defaults]$ cd ..
+[ansible@master jenkins]$ cd files
+[ansible@master files]$ ls -la
+total 0
+drwxrwxr-x. 2 ansible ansible  6 Nov 30 23:10 .
+drwxrwxr-x. 6 ansible ansible 65 Nov 30 23:10 ..
+[ansible@master files]$ cd ..
+[ansible@master jenkins]$ cd tasks
+[ansible@master tasks]$ ls
+main.yml
+[ansible@master tasks]$ cd
+[ansible@master ~]$ ls -la
+total 44
+drwx------. 7 ansible ansible  260 Nov 30 23:14 .
+drwxr-xr-x. 4 root    root      36 Nov 28 16:39 ..
+drwx------. 4 ansible ansible   27 Nov 29 13:16 .ansible
+-rw-rw-r--. 1 ansible ansible   66 Nov 29 13:27 apache.yml
+-rw-------. 1 ansible ansible 4105 Dec 11 03:42 .bash_history
+-rw-r--r--. 1 ansible ansible   18 May 11  2019 .bash_logout
+-rw-r--r--. 1 ansible ansible  141 May 11  2019 .bash_profile
+-rw-r--r--. 1 ansible ansible  312 May 11  2019 .bashrc
+-rw-rw-r--. 1 ansible ansible   51 Nov 28 16:57 .gitconfig
+drwxrwxr-x. 2 ansible ansible   19 Nov 30 22:37 inventory
+-rw-rw-r--. 1 ansible ansible   64 Nov 30 22:36 java.yml
+-rw-rw-r--. 1 ansible ansible   66 Nov 30 23:14 jenkins.yml
+-rw-rw-r--. 1 ansible ansible   85 Nov 29 21:36 mkdir.yml
+drwxrwxr-x. 6 ansible ansible   60 Nov 30 21:26 roles
+drwx------. 2 ansible ansible   80 Nov 30 22:51 .ssh
+-rw-rw-r--. 1 ansible ansible  203 Nov 29 13:17 test.yml
+drwxrwxr-x. 3 ansible ansible   54 Nov 28 16:55 vagrant
+[ansible@master ~]$ cd roles
+[ansible@master roles]$ ls -la
+total 0
+drwxrwxr-x. 6 ansible ansible  60 Nov 30 21:26 .
+drwx------. 7 ansible ansible 260 Nov 30 23:14 ..
+drwxrwxr-x. 6 ansible ansible  65 Nov 29 13:20 apache
+drwxrwxr-x. 6 ansible ansible  65 Nov 30 21:32 java
+drwxrwxr-x. 6 ansible ansible  65 Nov 30 23:10 jenkins
+drwxrwxr-x. 6 ansible ansible  65 Nov 29 20:48 mkdir
+[ansible@master roles]$ mkdir jenksusercreation
+[ansible@master roles]$ cd jenksusercreation/
+[ansible@master jenksusercreation]$ mkdir defaults filees tasks templates
+[ansible@master jenksusercreation]$ ls -la
+total 0
+drwxrwxr-x. 6 ansible ansible 66 Dec 11 04:41 .
+drwxrwxr-x. 7 ansible ansible 85 Dec 11 04:41 ..
+drwxrwxr-x. 2 ansible ansible  6 Dec 11 04:41 defaults
+drwxrwxr-x. 2 ansible ansible  6 Dec 11 04:41 filees
+drwxrwxr-x. 2 ansible ansible  6 Dec 11 04:41 tasks
+drwxrwxr-x. 2 ansible ansible  6 Dec 11 04:41 templates
+[ansible@master jenksusercreation]$ cd tasks
+[ansible@master tasks]$ ls -la
+total 0
+drwxrwxr-x. 2 ansible ansible  6 Dec 11 04:41 .
+drwxrwxr-x. 6 ansible ansible 66 Dec 11 04:41 ..
+[ansible@master tasks]$ vi main.yml
+[ansible@master tasks]$ sudo su -
+Last login: Fri Dec 11 03:56:27 UTC 2020 on pts/1
+[root@master ~]# cd /var/lib/jenkins
+[root@master jenkins]# ls -la
+total 68
+drwxr-xr-x. 15 jenkins jenkins 4096 Dec  9 15:37 .
+drwxr-xr-x. 33 root    root    4096 Nov 30 23:45 ..
+drwxr-xr-x.  3 jenkins jenkins   17 Nov 30 23:45 .cache
+-rw-r--r--.  1 jenkins jenkins 1642 Dec  9 14:25 config.xml
+drwxr-xr-x.  3 jenkins jenkins   20 Dec  9 14:24 .groovy
+-rw-r--r--.  1 jenkins jenkins  156 Dec  9 14:20 hudson.model.UpdateCenter.xml
+-rw-r--r--.  1 jenkins jenkins  370 Dec  9 14:24 hudson.plugins.git.GitTool.xml
+-rw-------.  1 jenkins jenkins 1712 Nov 30 23:46 identity.key.enc
+drwxr-xr-x.  3 jenkins jenkins   19 Nov 30 23:46 .java
+-rw-r--r--.  1 jenkins jenkins    5 Dec  9 14:25 jenkins.install.InstallUtil.lastExec
+-rw-r--r--.  1 jenkins jenkins    5 Dec  9 14:25 jenkins.install.UpgradeWizard.state
+drwxr-xr-x.  2 jenkins jenkins   89 Dec  9 14:37 jenkins-jobs
+-rw-r--r--.  1 jenkins jenkins  182 Dec  9 14:25 jenkins.model.JenkinsLocationConfigu
+-rw-r--r--.  1 jenkins jenkins  171 Nov 30 23:46 jenkins.telemetry.Correlator.xml
+drwxr-xr-x.  2 jenkins jenkins    6 Nov 30 23:46 jobs
+-rw-r--r--.  1 jenkins jenkins    0 Dec  9 14:20 .lastStarted
+drwxr-xr-x.  3 jenkins jenkins   19 Nov 30 23:46 logs
+-rw-r--r--.  1 jenkins jenkins  907 Dec  9 14:20 nodeMonitors.xml
+drwxr-xr-x.  2 jenkins jenkins    6 Nov 30 23:46 nodes
+-rw-r--r--.  1 jenkins jenkins   39 Dec 11 03:54 .owner
+drwxr-xr-x. 87 jenkins jenkins 8192 Dec  9 14:35 plugins
+-rw-r--r--.  1 jenkins jenkins  129 Dec  9 14:19 queue.xml.bak
+-rw-r--r--.  1 jenkins jenkins   64 Nov 30 23:46 secret.key
+-rw-r--r--.  1 jenkins jenkins    0 Nov 30 23:46 secret.key.not-so-secret
+drwx------.  4 jenkins jenkins  263 Dec  9 14:28 secrets
+drwxr-xr-x.  2 jenkins jenkins  182 Dec  9 14:23 updates
+drwxr-xr-x.  2 jenkins jenkins   24 Nov 30 23:46 userContent
+drwxr-xr-x.  3 jenkins jenkins   57 Dec  9 14:25 users
+drwxr-xr-x.  2 jenkins jenkins    6 Dec  9 14:23 workflow-libs
+[root@master jenkins]# ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa): /var/lib/jenkins/.ssh/id_rsa
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Saving key "/var/lib/jenkins/.ssh/id_rsa" failed: No such file or directory
+[root@master jenkins]# mkdir .ssh
+[root@master jenkins]# ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa): /var/lib/jenkins/.ssh/id_rsa
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /var/lib/jenkins/.ssh/id_rsa.
+Your public key has been saved in /var/lib/jenkins/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:GzSW3Rrebbc5ybYUlCgySL7t86dfPRmTwRxVfLlNB3U root@master
+The key's randomart image is:
++---[RSA 2048]----+
+|       .      .=E|
+|      o .o .  +.O|
+|       o=oo... B=|
+|       oooo+....+|
+|       .S.o . o=.|
+|        .o   ...X|
+|        .o     %.|
+|          o  .+ +|
+|           o+. . |
++----[SHA256]-----+
+[root@master jenkins]# ls -la
+total 68
+drwxr-xr-x. 16 jenkins jenkins 4096 Dec 11 04:57 .
+drwxr-xr-x. 33 root    root    4096 Nov 30 23:45 ..
+drwxr-xr-x.  3 jenkins jenkins   17 Nov 30 23:45 .cache
+-rw-r--r--.  1 jenkins jenkins 1642 Dec  9 14:25 config.xml
+drwxr-xr-x.  3 jenkins jenkins   20 Dec  9 14:24 .groovy
+-rw-r--r--.  1 jenkins jenkins  156 Dec  9 14:20 hudson.model.UpdateCenter.xml
+-rw-r--r--.  1 jenkins jenkins  370 Dec  9 14:24 hudson.plugins.git.GitTool.xml
+-rw-------.  1 jenkins jenkins 1712 Nov 30 23:46 identity.key.enc
+drwxr-xr-x.  3 jenkins jenkins   19 Nov 30 23:46 .java
+-rw-r--r--.  1 jenkins jenkins    5 Dec  9 14:25 jenkins.install.InstallUtil.lastExec
+-rw-r--r--.  1 jenkins jenkins    5 Dec  9 14:25 jenkins.install.UpgradeWizard.state
+drwxr-xr-x.  2 jenkins jenkins   89 Dec  9 14:37 jenkins-jobs
+-rw-r--r--.  1 jenkins jenkins  182 Dec  9 14:25 jenkins.model.JenkinsLocationConfigu
+-rw-r--r--.  1 jenkins jenkins  171 Nov 30 23:46 jenkins.telemetry.Correlator.xml
+drwxr-xr-x.  2 jenkins jenkins    6 Nov 30 23:46 jobs
+-rw-r--r--.  1 jenkins jenkins    0 Dec  9 14:20 .lastStarted
+drwxr-xr-x.  3 jenkins jenkins   19 Nov 30 23:46 logs
+-rw-r--r--.  1 jenkins jenkins  907 Dec  9 14:20 nodeMonitors.xml
+drwxr-xr-x.  2 jenkins jenkins    6 Nov 30 23:46 nodes
+-rw-r--r--.  1 jenkins jenkins   39 Dec 11 03:54 .owner
+drwxr-xr-x. 87 jenkins jenkins 8192 Dec  9 14:35 plugins
+-rw-r--r--.  1 jenkins jenkins  129 Dec  9 14:19 queue.xml.bak
+-rw-r--r--.  1 jenkins jenkins   64 Nov 30 23:46 secret.key
+-rw-r--r--.  1 jenkins jenkins    0 Nov 30 23:46 secret.key.not-so-secret
+drwx------.  4 jenkins jenkins  263 Dec  9 14:28 secrets
+drwxr-xr-x.  2 root    root      38 Dec 11 04:58 .ssh
+drwxr-xr-x.  2 jenkins jenkins  182 Dec  9 14:23 updates
+drwxr-xr-x.  2 jenkins jenkins   24 Nov 30 23:46 userContent
+drwxr-xr-x.  3 jenkins jenkins   57 Dec  9 14:25 users
+drwxr-xr-x.  2 jenkins jenkins    6 Dec  9 14:23 workflow-libs
+[root@master jenkins]# cd .ssh
+[root@master .ssh]# ls
+id_rsa  id_rsa.pub
+[root@master .ssh]# ls -ltr
+total 8
+-rw-r--r--. 1 root root  393 Dec 11 04:58 id_rsa.pub
+-rw-------. 1 root root 1823 Dec 11 04:58 id_rsa
+[root@master .ssh]# cd ../
+[root@master jenkins]# ls -ld .ssh
+drwxr-xr-x. 2 root root 38 Dec 11 04:58 .ssh
+[root@master jenkins]# chown -R jenkins:jenkins /var/lib/jenkins/.ssh
+[root@master jenkins]# ls -ld .ssh
+drwxr-xr-x. 2 jenkins jenkins 38 Dec 11 04:58 .ssh
+[root@master jenkins]# chmod 700 .ssh
+[root@master jenkins]# cd .ssh
+[root@master .ssh]# ls -ltr
+total 8
+-rw-r--r--. 1 jenkins jenkins  393 Dec 11 04:58 id_rsa.pub
+-rw-------. 1 jenkins jenkins 1823 Dec 11 04:58 id_rsa
+[root@master .ssh]# cd ..
+[root@master jenkins]# sudo su -
+Last login: Fri Dec 11 04:55:19 UTC 2020 on pts/1
+[root@master ~]# su - ansible
+Last login: Fri Dec 11 04:32:31 UTC 2020 on pts/1
+[ansible@master ~]$ ls -la
+total 44
+drwx------. 7 ansible ansible  260 Nov 30 23:14 .
+drwxr-xr-x. 4 root    root      36 Nov 28 16:39 ..
+drwx------. 4 ansible ansible   27 Nov 29 13:16 .ansible
+-rw-rw-r--. 1 ansible ansible   66 Nov 29 13:27 apache.yml
+-rw-------. 1 ansible ansible 4105 Dec 11 03:42 .bash_history
+-rw-r--r--. 1 ansible ansible   18 May 11  2019 .bash_logout
+-rw-r--r--. 1 ansible ansible  141 May 11  2019 .bash_profile
+-rw-r--r--. 1 ansible ansible  312 May 11  2019 .bashrc
+-rw-rw-r--. 1 ansible ansible   51 Nov 28 16:57 .gitconfig
+drwxrwxr-x. 2 ansible ansible   19 Nov 30 22:37 inventory
+-rw-rw-r--. 1 ansible ansible   64 Nov 30 22:36 java.yml
+-rw-rw-r--. 1 ansible ansible   66 Nov 30 23:14 jenkins.yml
+-rw-rw-r--. 1 ansible ansible   85 Nov 29 21:36 mkdir.yml
+drwxrwxr-x. 7 ansible ansible   85 Dec 11 04:41 roles
+drwx------. 2 ansible ansible   80 Nov 30 22:51 .ssh
+-rw-rw-r--. 1 ansible ansible  203 Nov 29 13:17 test.yml
+drwxrwxr-x. 3 ansible ansible   54 Nov 28 16:55 vagrant
+[ansible@master ~]$ cd .ssh
+[ansible@master .ssh]$ ls -la
+total 16
+drwx------. 2 ansible ansible   80 Nov 30 22:51 .
+drwx------. 7 ansible ansible  260 Nov 30 23:14 ..
+-rw-------. 1 ansible ansible  396 Nov 30 22:51 authorized_keys
+-rw-------. 1 ansible ansible 1823 Nov 28 18:02 id_rsa
+-rw-r--r--. 1 ansible ansible  396 Nov 28 18:02 id_rsa.pub
+-rw-r--r--. 1 ansible ansible  522 Nov 30 22:56 known_hosts
+[ansible@master .ssh]$ cat authorized_keys
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBnLT4L2HD85bQGzuWxLe63s/lH5J5WR9TwscqPwg9SYVP2O7jNfa7BygvlWRT79Vrp5IuHGD4uTedmvAIIU8P5myD6sHp13IL/vt71qnX/AaDtpBIT485OaF1FjQh2f+NMKUKWejSR/NrlKgIikMo5OzROujBhgnAtDxWfJ ansible@master
+[ansible@master .ssh]$ cd ..
+[ansible@master ~]$ ssh 10.10.10.101
+Last login: Wed Dec  2 14:46:49 2020 from 10.10.10.100
+[ansible@target1 ~]$ ls -la
+total 20
+drwx------. 4 ansible ansible 127 Nov 29 14:01 .
+drwxr-xr-x. 4 root    root     36 Nov 28 17:56 ..
+drwx------. 3 ansible ansible  17 Nov 29 13:16 .ansible
+-rw-------. 1 ansible ansible 371 Dec  2 14:53 .bash_history
+-rw-r--r--. 1 ansible ansible  18 May 11  2019 .bash_logout
+-rw-r--r--. 1 ansible ansible 141 May 11  2019 .bash_profile
+-rw-r--r--. 1 ansible ansible 312 May 11  2019 .bashrc
+-rw-------. 1 ansible ansible  28 Nov 29 14:01 .lesshst
+drwx------. 2 ansible ansible  29 Dec  1 00:04 .ssh
+[ansible@target1 ~]$ cd .ssh
+[ansible@target1 .ssh]$ ls -la
+total 4
+drwx------. 2 ansible ansible  29 Dec  1 00:04 .
+drwx------. 4 ansible ansible 127 Nov 29 14:01 ..
+-rw-------. 1 ansible ansible 397 Nov 28 18:26 authorized_keys
+[ansible@target1 .ssh]$ cat authorized_keys
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBnLT4L2HD85bQGzuWxLe63s/lH5J5WR9TwscqPwg9SYVP2O7jNfa7BygvlWRT79Vrp5IuHGD4uTedmvAIIU8P5myD6sHp13IL/vt71qnX/AaDtpBIT485OaF1FjQh2f+NMKUKWejSR/NrlKgIikMo5OzROujBhgnAtDxWfJ ansible@master
+
+[ansible@target1 .ssh]$ exit
+logout
+Connection to 10.10.10.101 closed.
+[ansible@master ~]$ sudo su -
+Last login: Fri Dec 11 05:07:13 UTC 2020 on pts/1
+[root@master ~]# cd /var/lib/jenkins
+[root@master jenkins]# ls -la
+total 68
+drwxr-xr-x. 16 jenkins jenkins 4096 Dec 11 04:57 .
+drwxr-xr-x. 33 root    root    4096 Nov 30 23:45 ..
+drwxr-xr-x.  3 jenkins jenkins   17 Nov 30 23:45 .cache
+-rw-r--r--.  1 jenkins jenkins 1642 Dec  9 14:25 config.xml
+drwxr-xr-x.  3 jenkins jenkins   20 Dec  9 14:24 .groovy
+-rw-r--r--.  1 jenkins jenkins  156 Dec  9 14:20 hudson.model.UpdateCenter.xml
+-rw-r--r--.  1 jenkins jenkins  370 Dec  9 14:24 hudson.plugins.git.GitTool.xml
+-rw-------.  1 jenkins jenkins 1712 Nov 30 23:46 identity.key.enc
+drwxr-xr-x.  3 jenkins jenkins   19 Nov 30 23:46 .java
+-rw-r--r--.  1 jenkins jenkins    5 Dec  9 14:25 jenkins.install.InstallUtil.lastExec
+-rw-r--r--.  1 jenkins jenkins    5 Dec  9 14:25 jenkins.install.UpgradeWizard.state
+drwxr-xr-x.  2 jenkins jenkins   89 Dec  9 14:37 jenkins-jobs
+-rw-r--r--.  1 jenkins jenkins  182 Dec  9 14:25 jenkins.model.JenkinsLocationConfigu
+-rw-r--r--.  1 jenkins jenkins  171 Nov 30 23:46 jenkins.telemetry.Correlator.xml
+drwxr-xr-x.  2 jenkins jenkins    6 Nov 30 23:46 jobs
+-rw-r--r--.  1 jenkins jenkins    0 Dec  9 14:20 .lastStarted
+drwxr-xr-x.  3 jenkins jenkins   19 Nov 30 23:46 logs
+-rw-r--r--.  1 jenkins jenkins  907 Dec  9 14:20 nodeMonitors.xml
+drwxr-xr-x.  2 jenkins jenkins    6 Nov 30 23:46 nodes
+-rw-r--r--.  1 jenkins jenkins   39 Dec 11 03:54 .owner
+drwxr-xr-x. 87 jenkins jenkins 8192 Dec  9 14:35 plugins
+-rw-r--r--.  1 jenkins jenkins  129 Dec  9 14:19 queue.xml.bak
+-rw-r--r--.  1 jenkins jenkins   64 Nov 30 23:46 secret.key
+-rw-r--r--.  1 jenkins jenkins    0 Nov 30 23:46 secret.key.not-so-secret
+drwx------.  4 jenkins jenkins  263 Dec  9 14:28 secrets
+drwx------.  2 jenkins jenkins   38 Dec 11 04:58 .ssh
+drwxr-xr-x.  2 jenkins jenkins  182 Dec  9 14:23 updates
+drwxr-xr-x.  2 jenkins jenkins   24 Nov 30 23:46 userContent
+drwxr-xr-x.  3 jenkins jenkins   57 Dec  9 14:25 users
+drwxr-xr-x.  2 jenkins jenkins    6 Dec  9 14:23 workflow-libs
+[root@master jenkins]# cd .ssh
+[root@master .ssh]# ls
+id_rsa  id_rsa.pub
+[root@master .ssh]# cat id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbtmlOg7ys2vb0KOZ693hyr+qL0p+/BrHSDOtUJ/QlkeLWDiieI0Iugr9imYuoSp/nUAClHQAbOHzG324/puaQKs5NXW7i0weC+13SCv9nDdzBPyfcU5fXEselFZdReaFS/j5T9xXLBuqTqmR3MZmFpcR9/I5pHiI0fpG3E5 root@master
+[root@master .ssh]# ^C
+[root@master .ssh]# sudo - su
+sudo: -: command not found
+[root@master .ssh]# sudo su -
+Last login: Fri Dec 11 05:09:39 UTC 2020 on pts/1
+[root@master ~]# cd /var/lib
+[root@master lib]# cd jenkins
+[root@master jenkins]# /home
+-bash: /home: Is a directory
+[root@master jenkins]# passwd
+Changing password for user root.
+New password:
+BAD PASSWORD: No password supplied
+Retype new password:
+No password supplied
+passwd: Authentication token manipulation error
+[root@master jenkins]# cd ..
+[root@master lib]# cd ..
+[root@master var]# cd..
+-bash: cd..: command not found
+[root@master var]# cd ..
+[root@master /]# passwd
+Changing password for user root.
+New password:
+BAD PASSWORD: No password supplied
+Retype new password:
+No password supplied
+passwd: Authentication token manipulation error
+[root@master /]# cd /var/lib/jenkins
+[root@master jenkins]#  cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+operator:x:11:0:operator:/root:/sbin/nologin
+games:x:12:100:games:/usr/games:/sbin/nologin
+ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+nobody:x:65534:65534:Kernel Overflow User:/:/sbin/nologin
+dbus:x:81:81:System message bus:/:/sbin/nologin
+systemd-coredump:x:999:997:systemd Core Dumper:/:/sbin/nologin
+systemd-resolve:x:193:193:systemd Resolver:/:/sbin/nologin
+tss:x:59:59:Account used by the trousers package to sandbox the tcsd daemon:/dev/null
+polkitd:x:998:996:User for polkitd:/:/sbin/nologin
+rpc:x:32:32:Rpcbind Daemon:/var/lib/rpcbind:/sbin/nologin
+unbound:x:997:994:Unbound DNS resolver:/etc/unbound:/sbin/nologin
+sssd:x:996:992:User for sssd:/:/sbin/nologin
+rpcuser:x:29:29:RPC Service User:/var/lib/nfs:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
+chrony:x:995:991::/var/lib/chrony:/sbin/nologin
+vagrant:x:1000:1000::/home/vagrant:/bin/bash
+ansible:x:1001:1001::/home/ansible:/bin/bash
+jenkins:x:994:990:Jenkins Automation Server:/var/lib/jenkins:/bin/false
+[root@master jenkins]# sudo su -
+Last login: Fri Dec 11 05:15:29 UTC 2020 on pts/1
+[root@master ~]# usermod -s /bin/bash jenkins
+[root@master ~]# cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+operator:x:11:0:operator:/root:/sbin/nologin
+games:x:12:100:games:/usr/games:/sbin/nologin
+ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+nobody:x:65534:65534:Kernel Overflow User:/:/sbin/nologin
+dbus:x:81:81:System message bus:/:/sbin/nologin
+systemd-coredump:x:999:997:systemd Core Dumper:/:/sbin/nologin
+systemd-resolve:x:193:193:systemd Resolver:/:/sbin/nologin
+tss:x:59:59:Account used by the trousers package to sandbox the tcsd daemon:/dev/null
+polkitd:x:998:996:User for polkitd:/:/sbin/nologin
+rpc:x:32:32:Rpcbind Daemon:/var/lib/rpcbind:/sbin/nologin
+unbound:x:997:994:Unbound DNS resolver:/etc/unbound:/sbin/nologin
+sssd:x:996:992:User for sssd:/:/sbin/nologin
+rpcuser:x:29:29:RPC Service User:/var/lib/nfs:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
+chrony:x:995:991::/var/lib/chrony:/sbin/nologin
+vagrant:x:1000:1000::/home/vagrant:/bin/bash
+ansible:x:1001:1001::/home/ansible:/bin/bash
+jenkins:x:994:990:Jenkins Automation Server:/var/lib/jenkins:/bin/bash
+[root@master ~]# su - jenkins
+Last login: Wed Dec  9 22:52:24 UTC 2020 on pts/0
+[jenkins@master ~]$ la -la
+-bash: la: command not found
+[jenkins@master ~]$ ls -la
+total 68
+drwxr-xr-x. 16 jenkins jenkins 4096 Dec 11 04:57 .
+drwxr-xr-x. 33 root    root    4096 Nov 30 23:45 ..
+drwxr-xr-x.  3 jenkins jenkins   17 Nov 30 23:45 .cache
+-rw-r--r--.  1 jenkins jenkins 1642 Dec  9 14:25 config.xml
+drwxr-xr-x.  3 jenkins jenkins   20 Dec  9 14:24 .groovy
+-rw-r--r--.  1 jenkins jenkins  156 Dec  9 14:20 hudson.model.UpdateCenter.xml
+-rw-r--r--.  1 jenkins jenkins  370 Dec  9 14:24 hudson.plugins.git.GitTool.xml
+-rw-------.  1 jenkins jenkins 1712 Nov 30 23:46 identity.key.enc
+drwxr-xr-x.  3 jenkins jenkins   19 Nov 30 23:46 .java
+-rw-r--r--.  1 jenkins jenkins    5 Dec  9 14:25 jenkins.install.InstallUtil.lastExec
+-rw-r--r--.  1 jenkins jenkins    5 Dec  9 14:25 jenkins.install.UpgradeWizard.state
+drwxr-xr-x.  2 jenkins jenkins   89 Dec  9 14:37 jenkins-jobs
+-rw-r--r--.  1 jenkins jenkins  182 Dec  9 14:25 jenkins.model.JenkinsLocationConfigu
+-rw-r--r--.  1 jenkins jenkins  171 Nov 30 23:46 jenkins.telemetry.Correlator.xml
+drwxr-xr-x.  2 jenkins jenkins    6 Nov 30 23:46 jobs
+-rw-r--r--.  1 jenkins jenkins    0 Dec  9 14:20 .lastStarted
+drwxr-xr-x.  3 jenkins jenkins   19 Nov 30 23:46 logs
+-rw-r--r--.  1 jenkins jenkins  907 Dec  9 14:20 nodeMonitors.xml
+drwxr-xr-x.  2 jenkins jenkins    6 Nov 30 23:46 nodes
+-rw-r--r--.  1 jenkins jenkins   39 Dec 11 05:14 .owner
+drwxr-xr-x. 87 jenkins jenkins 8192 Dec  9 14:35 plugins
+-rw-r--r--.  1 jenkins jenkins  129 Dec  9 14:19 queue.xml.bak
+-rw-r--r--.  1 jenkins jenkins   64 Nov 30 23:46 secret.key
+-rw-r--r--.  1 jenkins jenkins    0 Nov 30 23:46 secret.key.not-so-secret
+drwx------.  4 jenkins jenkins  263 Dec  9 14:28 secrets
+drwx------.  2 jenkins jenkins   38 Dec 11 04:58 .ssh
+drwxr-xr-x.  2 jenkins jenkins  182 Dec  9 14:23 updates
+drwxr-xr-x.  2 jenkins jenkins   24 Nov 30 23:46 userContent
+drwxr-xr-x.  3 jenkins jenkins   57 Dec  9 14:25 users
+drwxr-xr-x.  2 jenkins jenkins    6 Dec  9 14:23 workflow-libs
+[jenkins@master ~]$ cd .ssh
+[jenkins@master .ssh]$ ls
+id_rsa  id_rsa.pub
+[jenkins@master .ssh]$ rm id_rsa
+[jenkins@master .ssh]$ ls
+id_rsa.pub
+[jenkins@master .ssh]$ rm id_rsa.pub
+[jenkins@master .ssh]$ ls
+[jenkins@master .ssh]$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/var/lib/jenkins/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /var/lib/jenkins/.ssh/id_rsa.
+Your public key has been saved in /var/lib/jenkins/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:619PcKyw27ZDgcFRx4dEFErHTOtJil7aE/88wjmu2Ic jenkins@master
+The key's randomart image is:
++---[RSA 2048]----+
+|         ..ooOOo |
+|          o. +=..|
+|           o. o. |
+|          ...= . |
+|        S o =.=  |
+|         o *.*   |
+|        . +.B +  |
+|       .  oEoX + |
+|        .oo+*++ +|
++----[SHA256]-----+
+[jenkins@master .ssh]$ ls
+id_rsa  id_rsa.pub
+[jenkins@master .ssh]$ cat id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbZ8XpgO7i9NQAVDOmlYvxpcUuxy3syae26zbwgHfnoIeXTUT7j5XgQ9SXkuO59wJTpa9isYkrJ+vYkD4DP0HGp15hCU1Hp0RzCUC9iTVR9DUoyTv33s4qhdxnhzFmMZCGQFq9vKcKdA92UK9f6aE9pmHQby67Zw+MoCqcMv jenkins@master
+[jenkins@master .ssh]$ ^C
+[jenkins@master .ssh]$ sudo su - ansible
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+[sudo] password for jenkins:
+
+
+Sorry, try again.
+[sudo] password for jenkins:
+Sorry, try again.
+[sudo] password for jenkins:
+sudo: 2 incorrect password attempts
+[jenkins@master .ssh]$ sudo su -
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+[sudo] password for jenkins:
+
+Sorry, try again.
+[sudo] password for jenkins:
+Sorry, try again.
+[sudo] password for jenkins:
+
+sudo: 3 incorrect password attempts
+[jenkins@master .ssh]$
+[jenkins@master .ssh]$ exit
+logout
+[root@master ~]# su - ansible
+Last login: Fri Dec 11 05:07:26 UTC 2020 on pts/1
+[ansible@master ~]$ cd .ssh
+[ansible@master .ssh]$ ls
+authorized_keys  id_rsa  id_rsa.pub  known_hosts
+[ansible@master .ssh]$ cd ..
+[ansible@master ~]$ ls -la
+total 44
+drwx------. 7 ansible ansible  260 Nov 30 23:14 .
+drwxr-xr-x. 4 root    root      36 Nov 28 16:39 ..
+drwx------. 4 ansible ansible   27 Nov 29 13:16 .ansible
+-rw-rw-r--. 1 ansible ansible   66 Nov 29 13:27 apache.yml
+-rw-------. 1 ansible ansible 4105 Dec 11 03:42 .bash_history
+-rw-r--r--. 1 ansible ansible   18 May 11  2019 .bash_logout
+-rw-r--r--. 1 ansible ansible  141 May 11  2019 .bash_profile
+-rw-r--r--. 1 ansible ansible  312 May 11  2019 .bashrc
+-rw-rw-r--. 1 ansible ansible   51 Nov 28 16:57 .gitconfig
+drwxrwxr-x. 2 ansible ansible   19 Nov 30 22:37 inventory
+-rw-rw-r--. 1 ansible ansible   64 Nov 30 22:36 java.yml
+-rw-rw-r--. 1 ansible ansible   66 Nov 30 23:14 jenkins.yml
+-rw-rw-r--. 1 ansible ansible   85 Nov 29 21:36 mkdir.yml
+drwxrwxr-x. 7 ansible ansible   85 Dec 11 04:41 roles
+drwx------. 2 ansible ansible   80 Nov 30 22:51 .ssh
+-rw-rw-r--. 1 ansible ansible  203 Nov 29 13:17 test.yml
+drwxrwxr-x. 3 ansible ansible   54 Nov 28 16:55 vagrant
+[ansible@master ~]$ cd roles
+[ansible@master roles]$ ls
+apache  java  jenkins  jenksusercreation  mkdir
+[ansible@master roles]$ cd jenksusercreation/
+[ansible@master jenksusercreation]$ ls
+defaults  filees  tasks  templates
+[ansible@master jenksusercreation]$ cd tasks
+[ansible@master tasks]$ vi main.yml
+[ansible@master tasks]$ cat main.yml
+- name: Create jenkins user {{ user_name }}
+  user:
+       name: " {{ user_name }} "
+       home: " {{ jenkins_home }} "
+       shell: /bin/bash
+- name: create directory
+  file:
+       name: " {{ jenkins_home }}/{{ user_name }}/.ssh " mode= a+x
+       state: directory
+- name: Creating a file with ssh_key content
+  copy:
+       dest: " {{ jenkins_home }}/{{ user_name }}/.ssh/authorized_keys" mode= a+x
+       content: " {{ ssh_key }}"
+
+
+
+[ansible@master tasks]$ vi main.yml
+[ansible@master tasks]$ cd ..
+[ansible@master jenksusercreation]$ cd defaults/
+[ansible@master defaults]$ vi main.yml
+[ansible@master defaults]$ cd ..
+[ansible@master jenksusercreation]$ cd tasks
+[ansible@master tasks]$ vi main.yml
+[ansible@master tasks]$ cd ..
+[ansible@master jenksusercreation]$ cd ..
+[ansible@master roles]$ cd ..
+[ansible@master ~]$ cat jenkins.yml
+- hosts: all
+  user: ansible
+  become: yes
+  roles:
+    - jenkins
+[ansible@master ~]$ vi jenksusercreation.yml
+[ansible@master ~]$ vi jenksusercreation.yml
+[ansible@master ~]$ ansible-playbook -i inventory/hosts -l APP jenksusercreation.yml
+
+ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  did not find expected key
+
+The error appears to be in '/home/ansible/roles/jenksusercreation/tasks/main.yml': line 8, column 56, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+  file:
+       name: "{{ jenkins_home }}/{{ user_name }}/.ssh" mode= a+x
+                                                       ^ here
+We could be wrong, but this one looks like it might be an issue with
+missing quotes. Always quote template expression brackets when they
+start a value. For instance:
+
+    with_items:
+      - {{ foo }}
+
+Should be written as:
+
+    with_items:
+      - "{{ foo }}"
+[ansible@master ~]$
+[ansible@master ~]$ cd roles/jenksusercreation/tasks
+[ansible@master tasks]$ vi main.yml
+[ansible@master tasks]$ cd ..
+[ansible@master jenksusercreation]$ cd ../..
+[ansible@master ~]$ ansible-playbook -i inventory/hosts -l APP jenksusercreation.yml
+
+PLAY [all] **************************************************************************
+
+TASK [Gathering Facts] **************************************************************
+ok: [10.10.10.101]
+
+TASK [jenksusercreation : Create jenkins user jenkins] ******************************
+changed: [10.10.10.101]
+
+TASK [jenksusercreation : create directory] *****************************************
+changed: [10.10.10.101]
+
+TASK [jenksusercreation : Creating a file with ssh_key content] *********************
+changed: [10.10.10.101]
+
+PLAY RECAP **************************************************************************
+10.10.10.101               : ok=4    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+[ansible@master ~]$ ssh 10.10.10.101
+Last login: Wed Dec  2 17:47:24 2020 from 10.10.10.100
+[ansible@target1 ~]$ sudo su -
+Last login: Wed Dec  2 14:47:04 UTC 2020 on pts/0
+[root@target1 ~]# /etc/passwd
+-bash: /etc/passwd: Permission denied
+[root@target1 ~]# cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+operator:x:11:0:operator:/root:/sbin/nologin
+games:x:12:100:games:/usr/games:/sbin/nologin
+ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+nobody:x:65534:65534:Kernel Overflow User:/:/sbin/nologin
+dbus:x:81:81:System message bus:/:/sbin/nologin
+systemd-coredump:x:999:997:systemd Core Dumper:/:/sbin/nologin
+systemd-resolve:x:193:193:systemd Resolver:/:/sbin/nologin
+tss:x:59:59:Account used by the trousers package to sandbox the tcsd daemon:/dev/null:/sbin/nologin
+polkitd:x:998:996:User for polkitd:/:/sbin/nologin
+rpc:x:32:32:Rpcbind Daemon:/var/lib/rpcbind:/sbin/nologin
+unbound:x:997:994:Unbound DNS resolver:/etc/unbound:/sbin/nologin
+sssd:x:996:992:User for sssd:/:/sbin/nologin
+rpcuser:x:29:29:RPC Service User:/var/lib/nfs:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
+chrony:x:995:991::/var/lib/chrony:/sbin/nologin
+vagrant:x:1000:1000::/home/vagrant:/bin/bash
+ansible:x:1001:1001::/home/ansible:/bin/bash
+apache:x:48:48:Apache:/usr/share/httpd:/sbin/nologin
+jenkins:x:1002:1002::/var/lib/:/bin/bash
+[root@target1 ~]# su - jenkins
+[jenkins@target1 ~]$ ls -la
+total 12
+drwxr-xr-x. 35 root    root    4096 Dec  2 17:47 .
+drwxr-xr-x. 21 root    root    4096 Nov 29 13:36 ..
+drwxr-xr-x.  2 root    root     115 Oct 25  2019 alternatives
+drwxr-xr-x.  2 root    root      35 Oct 25  2019 authselect
+drwxr-xr-x.  2 chrony  chrony    19 Dec  2 17:01 chrony
+drwx------.  2 apache  apache     6 Sep 15 15:42 dav
+drwxr-xr-x.  2 root    root      24 Oct 25  2019 dbus
+drwxr-xr-x.  2 root    root       6 May 11  2019 dhclient
+drwxr-xr-x.  2 root    root      80 Nov 29 13:36 dnf
+drwxr-xr-x.  2 root    root       6 May 11  2019 games
+drwxr-xr-x.  4 root    root      55 Nov 30 21:03 gssproxy
+drwx------.  2 apache  apache     6 Sep 15 15:42 httpd
+drwxr-xr-x.  2 root    root       6 May 14  2019 hyperv
+drwxr-xr-x.  2 root    root       6 May 11  2019 initramfs
+d-w-rwxr-T.  3 jenkins jenkins   18 Dec  2 17:47 jenkins
+drwxr-xr-x.  2 root    root      30 Dec  2 04:46 logrotate
+drwxr-xr-x.  2 root    root       6 May 11  2019 misc
+drwx------.  2 root    root     168 Dec  2 14:19 NetworkManager
+drwxr-xr-x.  5 root    root      80 Oct 25  2019 nfs
+drwxr-xr-x.  2 root    root       6 May 11  2019 os-prober
+drwxr-x---.  3 root    polkitd   28 Oct 25  2019 polkit-1
+drwx------.  2 root    root       6 Oct 25  2019 portables
+drwx------.  2 root    root       6 Oct 25  2019 private
+drwxr-xr-x.  2 rpc     rpc        6 Oct 25  2019 rpcbind
+drwxr-xr-x.  2 root    root    4096 Nov 30 21:14 rpm
+drwxr-xr-x.  2 root    root       6 May 11  2019 rpm-state
+drwx------.  2 root    root      29 Dec  2 17:49 rsyslog
+drwxr-xr-x.  4 root    root      33 Oct 25  2019 samba
+drwxr-xr-x.  5 root    root      46 Oct 25  2019 selinux
+drwxr-xr-x.  9 root    root     105 Oct 25  2019 sss
+drwxr-xr-x.  5 root    root      70 Nov 28 15:28 systemd
+drwx------.  2 tss     tss        6 May 11  2019 tpm
+drwxr-xr-x.  2 root    root       6 May 11  2019 tuned
+drwxr-xr-x.  2 unbound unbound   22 Dec  2 00:00 unbound
+drwxr-xr-x.  2 root    root       6 Aug  5  2019 up2date
+[jenkins@target1 ~]$ cd .ssh
+-bash: cd: .ssh: No such file or directory
+[jenkins@target1 ~]$ cd jenkins
+-bash: cd: jenkins: Permission denied
+[jenkins@target1 ~]$ sudo su -
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+[sudo] password for jenkins:
+Sorry, try again.
+[sudo] password for jenkins:
+sudo: 1 incorrect password attempt
+[jenkins@target1 ~]$ exit
+logout
+[root@target1 ~]#  cd /var/lib/jenkins
+[root@target1 jenkins]# ls -la
+total 4
+d-w-rwxr-T.  3 jenkins jenkins   18 Dec  2 17:47 .
+drwxr-xr-x. 35 root    root    4096 Dec  2 17:47 ..
+d-w-rwxr-T.  2 jenkins jenkins   29 Dec  2 17:47 .ssh
+[root@target1 jenkins]# cd .ssh
+[root@target1 .ssh]# ls -la
+total 4
+d-w-rwxr-T. 2 jenkins jenkins  29 Dec  2 17:47 .
+d-w-rwxr-T. 3 jenkins jenkins  18 Dec  2 17:47 ..
+---x-wx--T. 1 jenkins jenkins 395 Dec  2 17:47 authorized_keys
+[root@target1 .ssh]# cat authorized_keys
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbZ8XpgO7i9NQAVDOmlYvxpcUuxy3syae26zbwgHfnoIeXTBk7G5uhQSjMSxl5SDquNI+o5EJ7upFLH2fpTVCV8JLxBydGJMKlafJRzoTXiqFXjWcY5pZUkwT+dP/1Was5qSNAUT7j5XgQ9SXkuO59wJTpa9isYkrJ+vYkD4DP0HGp15hCU1Hp0RzCUC9iTVR9DUoyTv33s4qhdxnhzFmMZCGQFxBaL3kYpYwr55dgSXZNI/QhBssvUqn5nP6luaeFVq7BUJQnhVKqJtIE/WKZkm1PJ3yyhqzbtuwkf01Xio2VWz8+q9vKcKdA92UK9f6aE9pmHQby67Zw+MoCqcMv jenkins@master[root@target1 .ssh]# exit
+logout
+[ansible@target1 ~]$ exit
+logout
+Connection to 10.10.10.101 closed.
+[ansible@master ~]$ sudo su -
+Last login: Fri Dec 11 05:17:46 UTC 2020 on pts/1
+[root@master ~]# su - jenkins
+Last login: Fri Dec 11 05:18:46 UTC 2020 on pts/1
+[jenkins@master ~]$ ssh 10.10.10.101
+The authenticity of host '10.10.10.101 (10.10.10.101)' can't be established.
+ECDSA key fingerprint is SHA256:gDq8sWY9jgBwbJS4EuVOdxVv+FBOSqJX5Nzio5w0omI.
+Are you sure you want to continue connecting (yes/no)? no
+Host key verification failed.
+[jenkins@master ~]$ exit
+logout
+[root@master ~]# su - ansible
+Last login: Fri Dec 11 05:31:16 UTC 2020 on pts/1
+[ansible@master ~]$ cd roles/jenksusercreation/tasks
+[ansible@master tasks]$ cat main.yml
+- name: Create jenkins user {{ user_name }}
+  user:
+       name: "{{ user_name }}"
+       home: "{{ jenkins_home }}"
+       shell: /bin/bash
+- name: create directory
+  file:
+       name: "{{ jenkins_home }}/{{ user_name }}/.ssh"
+       mode: 700
+       owner: "{{ user_name }}"
+       group: "{{user_name }}"
+       state: directory
+- name: Creating a file with ssh_key content
+  copy:
+       dest: "{{ jenkins_home }}/{{ user_name }}/.ssh/authorized_keys"
+       mode: 600
+       owner: "{{ user_name }}"
+       group: "{{ user_name }}"
+       content: "{{ ssh_key }}"
+
+
+
+[ansible@master tasks]$ cd ..
+[ansible@master jenksusercreation]$ cd ../..
+[ansible@master ~]$ cd roles/jenksusercreation/tasks
+[ansible@master tasks]$ vi main.yml
+[ansible@master tasks]$ cd ..
+[ansible@master jenksusercreation]$ cd ../..
+[ansible@master ~]$ ssh target1
+
+
+
+^[
+exit
+q
+q
+ssh: connect to host target1 port 22: Connection timed out
+[ansible@master ~]$
+[ansible@master ~]$
+[ansible@master ~]$
+[ansible@master ~]$
+[ansible@master ~]$ exit
+logout
+[root@master ~]# q
+-bash: q: command not found
+[root@master ~]# q
+-bash: q: command not found
+[root@master ~]# su - ansible
+Last login: Fri Dec 11 07:11:07 UTC 2020 on pts/1
+[ansible@master ~]$ ssh 10.10.10.101
+Last login: Wed Dec  2 17:47:56 2020 from 10.10.10.100
+[ansible@target1 ~]$ sudo su -
+Last login: Wed Dec  2 17:48:11 UTC 2020 on pts/0
+[root@target1 ~]# userdel -r jenkins
+userdel: /var/lib/ not owned by jenkins, not removing
+[root@target1 ~]# cd /var/lib
+[root@target1 lib]# ls -la
+total 12
+drwxr-xr-x. 35 root    root    4096 Dec  2 17:47 .
+drwxr-xr-x. 21 root    root    4096 Nov 29 13:36 ..
+drwxr-xr-x.  2 root    root     115 Oct 25  2019 alternatives
+drwxr-xr-x.  2 root    root      35 Oct 25  2019 authselect
+drwxr-xr-x.  2 chrony  chrony    19 Dec  2 18:10 chrony
+drwx------.  2 apache  apache     6 Sep 15 15:42 dav
+drwxr-xr-x.  2 root    root      24 Oct 25  2019 dbus
+drwxr-xr-x.  2 root    root       6 May 11  2019 dhclient
+drwxr-xr-x.  2 root    root      80 Nov 29 13:36 dnf
+drwxr-xr-x.  2 root    root       6 May 11  2019 games
+drwxr-xr-x.  4 root    root      55 Nov 30 21:03 gssproxy
+drwx------.  2 apache  apache     6 Sep 15 15:42 httpd
+drwxr-xr-x.  2 root    root       6 May 14  2019 hyperv
+drwxr-xr-x.  2 root    root       6 May 11  2019 initramfs
+d-w-rwxr-T.  3    1002    1002   18 Dec  2 17:47 jenkins
+drwxr-xr-x.  2 root    root      30 Dec  2 04:46 logrotate
+drwxr-xr-x.  2 root    root       6 May 11  2019 misc
+drwx------.  2 root    root     168 Dec  2 14:19 NetworkManager
+drwxr-xr-x.  5 root    root      80 Oct 25  2019 nfs
+drwxr-xr-x.  2 root    root       6 May 11  2019 os-prober
+drwxr-x---.  3 root    polkitd   28 Oct 25  2019 polkit-1
+drwx------.  2 root    root       6 Oct 25  2019 portables
+drwx------.  2 root    root       6 Oct 25  2019 private
+drwxr-xr-x.  2 rpc     rpc        6 Oct 25  2019 rpcbind
+drwxr-xr-x.  2 root    root    4096 Nov 30 21:14 rpm
+drwxr-xr-x.  2 root    root       6 May 11  2019 rpm-state
+drwx------.  2 root    root      29 Dec  2 18:22 rsyslog
+drwxr-xr-x.  4 root    root      33 Oct 25  2019 samba
+drwxr-xr-x.  5 root    root      46 Oct 25  2019 selinux
+drwxr-xr-x.  9 root    root     105 Oct 25  2019 sss
+drwxr-xr-x.  5 root    root      70 Nov 28 15:28 systemd
+drwx------.  2 tss     tss        6 May 11  2019 tpm
+drwxr-xr-x.  2 root    root       6 May 11  2019 tuned
+drwxr-xr-x.  2 unbound unbound   22 Dec  2 00:00 unbound
+drwxr-xr-x.  2 root    root       6 Aug  5  2019 up2date
+[root@target1 lib]# rmdir jenkins
+rmdir: failed to remove 'jenkins': Directory not empty
+[root@target1 lib]# rmdir -r jenkins
+rmdir: invalid option -- 'r'
+Try 'rmdir --help' for more information.
+[root@target1 lib]# rmdir --help
+Usage: rmdir [OPTION]... DIRECTORY...
+Remove the DIRECTORY(ies), if they are empty.
+
+      --ignore-fail-on-non-empty
+                  ignore each failure that is solely because a directory
+                    is non-empty
+  -p, --parents   remove DIRECTORY and its ancestors; e.g., 'rmdir -p a/b/c' is
+                    similar to 'rmdir a/b/c a/b a'
+  -v, --verbose   output a diagnostic for every directory processed
+      --help     display this help and exit
+      --version  output version information and exit
+
+GNU coreutils online help: <https://www.gnu.org/software/coreutils/>
+Full documentation at: <https://www.gnu.org/software/coreutils/rmdir>
+or available locally via: info '(coreutils) rmdir invocation'
+[root@target1 lib]# ls -la
+total 12
+drwxr-xr-x. 35 root    root    4096 Dec  2 17:47 .
+drwxr-xr-x. 21 root    root    4096 Nov 29 13:36 ..
+drwxr-xr-x.  2 root    root     115 Oct 25  2019 alternatives
+drwxr-xr-x.  2 root    root      35 Oct 25  2019 authselect
+drwxr-xr-x.  2 chrony  chrony    19 Dec  2 18:10 chrony
+drwx------.  2 apache  apache     6 Sep 15 15:42 dav
+drwxr-xr-x.  2 root    root      24 Oct 25  2019 dbus
+drwxr-xr-x.  2 root    root       6 May 11  2019 dhclient
+drwxr-xr-x.  2 root    root      80 Nov 29 13:36 dnf
+drwxr-xr-x.  2 root    root       6 May 11  2019 games
+drwxr-xr-x.  4 root    root      55 Nov 30 21:03 gssproxy
+drwx------.  2 apache  apache     6 Sep 15 15:42 httpd
+drwxr-xr-x.  2 root    root       6 May 14  2019 hyperv
+drwxr-xr-x.  2 root    root       6 May 11  2019 initramfs
+d-w-rwxr-T.  3    1002    1002   18 Dec  2 17:47 jenkins
+drwxr-xr-x.  2 root    root      30 Dec  2 04:46 logrotate
+drwxr-xr-x.  2 root    root       6 May 11  2019 misc
+drwx------.  2 root    root     168 Dec  2 14:19 NetworkManager
+drwxr-xr-x.  5 root    root      80 Oct 25  2019 nfs
+drwxr-xr-x.  2 root    root       6 May 11  2019 os-prober
+drwxr-x---.  3 root    polkitd   28 Oct 25  2019 polkit-1
+drwx------.  2 root    root       6 Oct 25  2019 portables
+drwx------.  2 root    root       6 Oct 25  2019 private
+drwxr-xr-x.  2 rpc     rpc        6 Oct 25  2019 rpcbind
+drwxr-xr-x.  2 root    root    4096 Nov 30 21:14 rpm
+drwxr-xr-x.  2 root    root       6 May 11  2019 rpm-state
+drwx------.  2 root    root      29 Dec  2 18:22 rsyslog
+drwxr-xr-x.  4 root    root      33 Oct 25  2019 samba
+drwxr-xr-x.  5 root    root      46 Oct 25  2019 selinux
+drwxr-xr-x.  9 root    root     105 Oct 25  2019 sss
+drwxr-xr-x.  5 root    root      70 Nov 28 15:28 systemd
+drwx------.  2 tss     tss        6 May 11  2019 tpm
+drwxr-xr-x.  2 root    root       6 May 11  2019 tuned
+drwxr-xr-x.  2 unbound unbound   22 Dec  2 00:00 unbound
+drwxr-xr-x.  2 root    root       6 Aug  5  2019 up2date
+[root@target1 lib]# rm -r jenkins
+rm: descend into directory 'jenkins'?
+[root@target1 lib]# ls -la
+total 12
+drwxr-xr-x. 35 root    root    4096 Dec  2 17:47 .
+drwxr-xr-x. 21 root    root    4096 Nov 29 13:36 ..
+drwxr-xr-x.  2 root    root     115 Oct 25  2019 alternatives
+drwxr-xr-x.  2 root    root      35 Oct 25  2019 authselect
+drwxr-xr-x.  2 chrony  chrony    19 Dec  2 18:10 chrony
+drwx------.  2 apache  apache     6 Sep 15 15:42 dav
+drwxr-xr-x.  2 root    root      24 Oct 25  2019 dbus
+drwxr-xr-x.  2 root    root       6 May 11  2019 dhclient
+drwxr-xr-x.  2 root    root      80 Nov 29 13:36 dnf
+drwxr-xr-x.  2 root    root       6 May 11  2019 games
+drwxr-xr-x.  4 root    root      55 Nov 30 21:03 gssproxy
+drwx------.  2 apache  apache     6 Sep 15 15:42 httpd
+drwxr-xr-x.  2 root    root       6 May 14  2019 hyperv
+drwxr-xr-x.  2 root    root       6 May 11  2019 initramfs
+d-w-rwxr-T.  3    1002    1002   18 Dec  2 17:47 jenkins
+drwxr-xr-x.  2 root    root      30 Dec  2 04:46 logrotate
+drwxr-xr-x.  2 root    root       6 May 11  2019 misc
+drwx------.  2 root    root     168 Dec  2 14:19 NetworkManager
+drwxr-xr-x.  5 root    root      80 Oct 25  2019 nfs
+drwxr-xr-x.  2 root    root       6 May 11  2019 os-prober
+drwxr-x---.  3 root    polkitd   28 Oct 25  2019 polkit-1
+drwx------.  2 root    root       6 Oct 25  2019 portables
+drwx------.  2 root    root       6 Oct 25  2019 private
+drwxr-xr-x.  2 rpc     rpc        6 Oct 25  2019 rpcbind
+drwxr-xr-x.  2 root    root    4096 Nov 30 21:14 rpm
+drwxr-xr-x.  2 root    root       6 May 11  2019 rpm-state
+drwx------.  2 root    root      29 Dec  2 18:22 rsyslog
+drwxr-xr-x.  4 root    root      33 Oct 25  2019 samba
+drwxr-xr-x.  5 root    root      46 Oct 25  2019 selinux
+drwxr-xr-x.  9 root    root     105 Oct 25  2019 sss
+drwxr-xr-x.  5 root    root      70 Nov 28 15:28 systemd
+drwx------.  2 tss     tss        6 May 11  2019 tpm
+drwxr-xr-x.  2 root    root       6 May 11  2019 tuned
+drwxr-xr-x.  2 unbound unbound   22 Dec  2 00:00 unbound
+drwxr-xr-x.  2 root    root       6 Aug  5  2019 up2date
+[root@target1 lib]# rm -rf jenkins/
+[root@target1 lib]# ls -la
+total 12
+drwxr-xr-x. 34 root    root    4096 Dec  2 18:28 .
+drwxr-xr-x. 21 root    root    4096 Nov 29 13:36 ..
+drwxr-xr-x.  2 root    root     115 Oct 25  2019 alternatives
+drwxr-xr-x.  2 root    root      35 Oct 25  2019 authselect
+drwxr-xr-x.  2 chrony  chrony    19 Dec  2 18:10 chrony
+drwx------.  2 apache  apache     6 Sep 15 15:42 dav
+drwxr-xr-x.  2 root    root      24 Oct 25  2019 dbus
+drwxr-xr-x.  2 root    root       6 May 11  2019 dhclient
+drwxr-xr-x.  2 root    root      80 Nov 29 13:36 dnf
+drwxr-xr-x.  2 root    root       6 May 11  2019 games
+drwxr-xr-x.  4 root    root      55 Nov 30 21:03 gssproxy
+drwx------.  2 apache  apache     6 Sep 15 15:42 httpd
+drwxr-xr-x.  2 root    root       6 May 14  2019 hyperv
+drwxr-xr-x.  2 root    root       6 May 11  2019 initramfs
+drwxr-xr-x.  2 root    root      30 Dec  2 04:46 logrotate
+drwxr-xr-x.  2 root    root       6 May 11  2019 misc
+drwx------.  2 root    root     168 Dec  2 14:19 NetworkManager
+drwxr-xr-x.  5 root    root      80 Oct 25  2019 nfs
+drwxr-xr-x.  2 root    root       6 May 11  2019 os-prober
+drwxr-x---.  3 root    polkitd   28 Oct 25  2019 polkit-1
+drwx------.  2 root    root       6 Oct 25  2019 portables
+drwx------.  2 root    root       6 Oct 25  2019 private
+drwxr-xr-x.  2 rpc     rpc        6 Oct 25  2019 rpcbind
+drwxr-xr-x.  2 root    root    4096 Nov 30 21:14 rpm
+drwxr-xr-x.  2 root    root       6 May 11  2019 rpm-state
+drwx------.  2 root    root      29 Dec  2 18:22 rsyslog
+drwxr-xr-x.  4 root    root      33 Oct 25  2019 samba
+drwxr-xr-x.  5 root    root      46 Oct 25  2019 selinux
+drwxr-xr-x.  9 root    root     105 Oct 25  2019 sss
+drwxr-xr-x.  5 root    root      70 Nov 28 15:28 systemd
+drwx------.  2 tss     tss        6 May 11  2019 tpm
+drwxr-xr-x.  2 root    root       6 May 11  2019 tuned
+drwxr-xr-x.  2 unbound unbound   22 Dec  2 00:00 unbound
+drwxr-xr-x.  2 root    root       6 Aug  5  2019 up2date
+[root@target1 lib]# cd ..
+[root@target1 var]# cd ..
+[root@target1 /]# exit
+logout
+[ansible@target1 ~]$ exit
+logout
+Connection to 10.10.10.101 closed.
+[ansible@master ~]$ cd roles/jenksusercreation/defaults/
+[ansible@master defaults]$ vi main.yml
+[ansible@master defaults]$ cd ../..
+[ansible@master roles]$ cd jenksusercreation/tasks
+[ansible@master tasks]$ cat main.yml
+- name: Create jenkins user {{ user_name }}
+  user:
+       name: "{{ user_name }}"
+       home: "{{ jenkins_home }}"
+       shell: /bin/bash
+- name: create directory
+  file:
+       path: "{{ jenkins_home }}/.ssh"
+       mode: 700
+       owner: "{{ user_name }}"
+       group: "{{user_name }}"
+       state: directory
+- name: Creating a file with ssh_key content
+  file:
+       path: "{{ jenkins_home }}/.ssh/authorized_keys"
+       mode: 600
+       owner: "{{ user_name }}"
+       group: "{{ user_name }}"
+       content: "{{ ssh_key }}"
+
+
+
+[ansible@master tasks]$ cd ../..
+[ansible@master roles]$ cd ..
+[ansible@master ~]$ ansible-playbook -i inventory/hosts -l LOCAL jenksusercreation.yml
+
+PLAY [all] **************************************************************************
+
+TASK [Gathering Facts] **************************************************************
+ok: [10.10.10.100]
+
+TASK [jenksusercreation : Create jenkins user jenkins] ******************************
+ok: [10.10.10.100]
+
+TASK [jenksusercreation : create directory] *****************************************
+changed: [10.10.10.100]
+
+TASK [jenksusercreation : Creating a file with ssh_key content] *********************
+fatal: [10.10.10.100]: FAILED! => {"changed": false, "msg": "file (/var/lib/jenkins/.ssh/authorized_keys) is absent, cannot continue", "path": "/var/lib/jenkins/.ssh/authorized_keys", "state": "absent"}
+
+PLAY RECAP **************************************************************************
+10.10.10.100               : ok=3    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+
+[ansible@master ~]$ cd roles/jenksusercreation/tasks
+[ansible@master tasks]$ vi main.yml
+[ansible@master tasks]$ cd ../../..
+[ansible@master ~]$ ansible-playbook -i inventory/hosts -l LOCAL jenksusercreation.yml
+
+PLAY [all] **************************************************************************
+
+TASK [Gathering Facts] **************************************************************
+ok: [10.10.10.100]
+
+TASK [jenksusercreation : Create jenkins user jenkins] ******************************
+ok: [10.10.10.100]
+
+TASK [jenksusercreation : create directory] *****************************************
+ok: [10.10.10.100]
+
+TASK [jenksusercreation : Creating a file with ssh_key content] *********************
+fatal: [10.10.10.100]: FAILED! => {"changed": false, "msg": "value of state must be one of: absent, directory, file, hard, link, touch, got: present"}
+
+PLAY RECAP **************************************************************************
+10.10.10.100               : ok=3    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+
+[ansible@master ~]$ ansible-playbook -i inventory/hosts -l APP jenksusercreation.yml
+
+PLAY [all] **************************************************************************
+
+TASK [Gathering Facts] **************************************************************
+ok: [10.10.10.101]
+
+TASK [jenksusercreation : Create jenkins user jenkins] ******************************
+changed: [10.10.10.101]
+
+TASK [jenksusercreation : create directory] *****************************************
+changed: [10.10.10.101]
+
+TASK [jenksusercreation : Creating a file with ssh_key content] *********************
+fatal: [10.10.10.101]: FAILED! => {"changed": false, "msg": "value of state must be one of: absent, directory, file, hard, link, touch, got: present"}
+
+PLAY RECAP **************************************************************************
+10.10.10.101               : ok=3    changed=2    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+
+[ansible@master ~]$ vi roles/jenksusercreation/tasks/main.yml
+[ansible@master ~]$ ansible-playbook -i inventory/hosts -l APP jenksusercreation.yml
+
+PLAY [all] **************************************************************************
+
+TASK [Gathering Facts] **************************************************************
+ok: [10.10.10.101]
+
+TASK [jenksusercreation : Create jenkins user jenkins] ******************************
+ok: [10.10.10.101]
+
+TASK [jenksusercreation : create directory] *****************************************
+ok: [10.10.10.101]
+
+TASK [jenksusercreation : Creating a file with ssh_key content] *********************
+fatal: [10.10.10.101]: FAILED! => {"changed": false, "msg": "file (/var/lib/jenkins/.ssh/authorized_keys) is absent, cannot continue", "path": "/var/lib/jenkins/.ssh/authorized_keys", "state": "absent"}
+
+PLAY RECAP **************************************************************************
+10.10.10.101               : ok=3    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+
+[ansible@master ~]$ vi roles/jenksusercreation/tasks/main.yml                        [ansible@master ~]$ ansible-playbook -i inventory/hosts -l APP jenksusercreation.yml
+
+PLAY [all] **************************************************************************
+
+TASK [Gathering Facts] **************************************************************
+ok: [10.10.10.101]
+
+TASK [jenksusercreation : Create jenkins user jenkins] ******************************
+ok: [10.10.10.101]
+
+TASK [jenksusercreation : create directory] *****************************************
+ok: [10.10.10.101]
+
+TASK [jenksusercreation : Creating a file with ssh_key content] *********************
+fatal: [10.10.10.101]: FAILED! => {"changed": false, "checksum": "9bf468c05c4802256bfe7b094682423982ece8f3", "msg": "Unsupported parameters for (copy) module: state Supported parameters include: _original_basename, attributes, backup, checksum, content, delimiter, dest, directory_mode, follow, force, group, local_follow, mode, owner, regexp, remote_src, selevel, serole, setype, seuser, src, unsafe_writes, validate"}
+
+PLAY RECAP **************************************************************************
+10.10.10.101               : ok=3    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+
+[ansible@master ~]$ vi roles/jenksusercreation/tasks/main.yml                        [ansible@master ~]$ ansible-playbook -i inventory/hosts -l APP jenksusercreation.yml
+
+PLAY [all] **************************************************************************
+
+TASK [Gathering Facts] **************************************************************
+ok: [10.10.10.101]
+
+TASK [jenksusercreation : Create jenkins user jenkins] ******************************
+ok: [10.10.10.101]
+
+TASK [jenksusercreation : create directory] *****************************************
+ok: [10.10.10.101]
+
+TASK [jenksusercreation : Creating a file with ssh_key content] *********************
+changed: [10.10.10.101]
+
+PLAY RECAP **************************************************************************
+10.10.10.101               : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+[ansible@master ~]$ ssh 10.10.10.101
+Last login: Wed Dec  2 18:41:58 2020 from 10.10.10.100
+[ansible@target1 ~]$ sudo su -
+Last login: Wed Dec  2 18:22:55 UTC 2020 on pts/0
+[root@target1 ~]# cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+operator:x:11:0:operator:/root:/sbin/nologin
+games:x:12:100:games:/usr/games:/sbin/nologin
+ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+nobody:x:65534:65534:Kernel Overflow User:/:/sbin/nologin
+dbus:x:81:81:System message bus:/:/sbin/nologin
+systemd-coredump:x:999:997:systemd Core Dumper:/:/sbin/nologin
+systemd-resolve:x:193:193:systemd Resolver:/:/sbin/nologin
+tss:x:59:59:Account used by the trousers package to sandbox the tcsd daemon:/dev/null:/sbin/nologin
+polkitd:x:998:996:User for polkitd:/:/sbin/nologin
+rpc:x:32:32:Rpcbind Daemon:/var/lib/rpcbind:/sbin/nologin
+unbound:x:997:994:Unbound DNS resolver:/etc/unbound:/sbin/nologin
+sssd:x:996:992:User for sssd:/:/sbin/nologin
+rpcuser:x:29:29:RPC Service User:/var/lib/nfs:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
+chrony:x:995:991::/var/lib/chrony:/sbin/nologin
+vagrant:x:1000:1000::/home/vagrant:/bin/bash
+ansible:x:1001:1001::/home/ansible:/bin/bash
+apache:x:48:48:Apache:/usr/share/httpd:/sbin/nologin
+jenkins:x:1002:1002::/var/lib/jenkins:/bin/bash
+[root@target1 ~]# su - jenkins
+[jenkins@target1 ~]$ ls -la
+total 16
+drwx------.  3 jenkins jenkins   74 Dec  2 18:36 .
+drwxr-xr-x. 35 root    root    4096 Dec  2 18:36 ..
+-rw-r--r--.  1 jenkins jenkins   18 May 11  2019 .bash_logout
+-rw-r--r--.  1 jenkins jenkins  141 May 11  2019 .bash_profile
+-rw-r--r--.  1 jenkins jenkins  312 May 11  2019 .bashrc
+d-w-rwxr-T.  2 jenkins jenkins   29 Dec  2 18:41 .ssh
+[jenkins@target1 ~]$ cd .ssh
+-bash: cd: .ssh: Permission denied
+[jenkins@target1 ~]$ chmod 700 .ssh
+[jenkins@target1 ~]$ cd .ssh
+[jenkins@target1 .ssh]$ ls -la
+total 4
+drwx------. 2 jenkins jenkins  29 Dec  2 18:41 .
+drwx------. 3 jenkins jenkins  74 Dec  2 18:36 ..
+---x-wx--T. 1 jenkins jenkins 395 Dec  2 18:41 authorized_keys
+[jenkins@target1 .ssh]$ chmod 600 authorized_keys
+[jenkins@target1 .ssh]$ cat authorized_keys
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbZ8XpgO7i9NQAVDOmlYvxpcUuxy3syae26zbwgHfnoIeXTBk7G5uhQSjMSxl5SDquNI+o5EJ7upFLH2fpTVCV8JLxBydGJMKlafJRzoTXiqFXjWcY5pZUkwT+dP/1Was5qSNAUT7j5XgQ9SXkuO59wJTpa9isYkrJ+vYkD4DP0HGp15hCU1Hp0RzCUC9iTVR9DUoyTv33s4qhdxnhzFmMZCGQFxBaL3kYpYwr55dgSXZNI/QhBssvUqn5nP6luaeFVq7BUJQnhVKqJtIE/WKZkm1PJ3yyhqzbtuwkf01Xio2VWz8+q9vKcKdA92UK9f6aE9pmHQby67Zw+MoCqcMv jenkins@master[jenkins@target1 .ssh]$ exit
+logout
+[root@target1 ~]# exit
+logout
+[ansible@target1 ~]$ exit
+logout
+Connection to 10.10.10.101 closed.
+[ansible@master ~]$ exit
+logout
+[root@master ~]# su - jenkins
+Last login: Fri Dec 11 06:54:07 UTC 2020 on pts/1
+[jenkins@master ~]$ ssh 10.10.10.101
+load pubkey "/var/lib/jenkins/.ssh/id_rsa": Permission denied
+load pubkey "/var/lib/jenkins/.ssh/id_rsa": Permission denied
+load pubkey "/var/lib/jenkins/.ssh/id_dsa": Permission denied
+load pubkey "/var/lib/jenkins/.ssh/id_dsa": Permission denied
+load pubkey "/var/lib/jenkins/.ssh/id_ecdsa": Permission denied
+load pubkey "/var/lib/jenkins/.ssh/id_ecdsa": Permission denied
+load pubkey "/var/lib/jenkins/.ssh/id_ed25519": Permission denied
+load pubkey "/var/lib/jenkins/.ssh/id_ed25519": Permission denied
+load pubkey "/var/lib/jenkins/.ssh/id_xmss": Permission denied
+load pubkey "/var/lib/jenkins/.ssh/id_xmss": Permission denied
+The authenticity of host '10.10.10.101 (10.10.10.101)' can't be established.
+ECDSA key fingerprint is SHA256:gDq8sWY9jgBwbJS4EuVOdxVv+FBOSqJX5Nzio5w0omI.
+Are you sure you want to continue connecting (yes/no)? yes
+Failed to add the host to the list of known hosts (/var/lib/jenkins/.ssh/known_hosts).
+jenkins@10.10.10.101's password:
+Permission denied, please try again.
+jenkins@10.10.10.101's password:
+Permission denied, please try again.
+jenkins@10.10.10.101's password:
+jenkins@10.10.10.101: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).
+[jenkins@master ~]$
+[jenkins@master ~]$
+[jenkins@master ~]$
+[jenkins@master ~]$
+[jenkins@master ~]$
+[jenkins@master ~]$ cd .ssh
+-bash: cd: .ssh: Permission denied
+[jenkins@master ~]$ cdmod 700 .ssh
+-bash: cdmod: command not found
+[jenkins@master ~]$ /etc
+-bash: /etc: Is a directory
+[jenkins@master ~]$ pwd
+/var/lib/jenkins
+[jenkins@master ~]$ ssh 10.10.10.101
+load pubkey "/var/lib/jenkins/.ssh/id_rsa": Permission denied
+load pubkey "/var/lib/jenkins/.ssh/id_rsa": Permission denied
+load pubkey "/var/lib/jenkins/.ssh/id_dsa": Permission denied
+load pubkey "/var/lib/jenkins/.ssh/id_dsa": Permission denied
+load pubkey "/var/lib/jenkins/.ssh/id_ecdsa": Permission denied
+load pubkey "/var/lib/jenkins/.ssh/id_ecdsa": Permission denied
+load pubkey "/var/lib/jenkins/.ssh/id_ed25519": Permission denied
+load pubkey "/var/lib/jenkins/.ssh/id_ed25519": Permission denied
+load pubkey "/var/lib/jenkins/.ssh/id_xmss": Permission denied
+load pubkey "/var/lib/jenkins/.ssh/id_xmss": Permission denied
+The authenticity of host '10.10.10.101 (10.10.10.101)' can't be established.
+ECDSA key fingerprint is SHA256:gDq8sWY9jgBwbJS4EuVOdxVv+FBOSqJX5Nzio5w0omI.
+Are you sure you want to continue connecting (yes/no)? yes
+Failed to add the host to the list of known hosts (/var/lib/jenkins/.ssh/known_hosts).
+jenkins@10.10.10.101's password:
+
+[jenkins@master ~]$ exit
+logout
+[root@master ~]# sudo su - ansible
+Last login: Fri Dec 11 07:36:42 UTC 2020 from 10.10.10.100 on pts/2
+[ansible@master ~]$ ssh 10.10.10.101
+Last login: Wed Dec  2 18:42:17 2020 from 10.10.10.100
+[ansible@target1 ~]$ sudo su - jenkins
+Last login: Wed Dec  2 18:43:27 UTC 2020 on pts/0
+Last failed login: Wed Dec  2 18:46:36 UTC 2020 from 10.10.10.100 on ssh:notty
+There were 2 failed login attempts since the last successful login.
+[jenkins@target1 ~]$ ls
+[jenkins@target1 ~]$ pwd
+/var/lib/jenkins
+[jenkins@target1 ~]$ ls -la
+total 20
+drwx------.  3 jenkins jenkins   95 Dec  2 18:45 .
+drwxr-xr-x. 35 root    root    4096 Dec  2 18:36 ..
+-rw-------.  1 jenkins jenkins   98 Dec  2 18:45 .bash_history
+-rw-r--r--.  1 jenkins jenkins   18 May 11  2019 .bash_logout
+-rw-r--r--.  1 jenkins jenkins  141 May 11  2019 .bash_profile
+-rw-r--r--.  1 jenkins jenkins  312 May 11  2019 .bashrc
+drwx------.  2 jenkins jenkins   29 Dec  2 18:41 .ssh
+[jenkins@target1 ~]$ cd .ssh
+[jenkins@target1 .ssh]$ ls -la
+total 4
+drwx------. 2 jenkins jenkins  29 Dec  2 18:41 .
+drwx------. 3 jenkins jenkins  95 Dec  2 18:45 ..
+-rw-------. 1 jenkins jenkins 395 Dec  2 18:41 authorized_keys
+[jenkins@target1 .ssh]$ cat authorized_keys
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbZ8XpgO7i9NQAVDOmlYvxpcUuxy3syae26zbwgHfnoIeXTBk7G5uhQSjMSxl5SDquNI+o5EJ7upFLH2fpTVCV8JLxBydGJMKlafJRzoTXiqFXjWcY5pZUkwT+dP/1Was5qSNAUT7j5XgQ9SXkuO59wJTpa9isYkrJ+vYkD4DP0HGp15hCU1Hp0RzCUC9iTVR9DUoyTv33s4qhdxnhzFmMZCGQFxBaL3kYpYwr55dgSXZNI/QhBssvUqn5nP6luaeFVq7BUJQnhVKqJtIE/WKZkm1PJ3yyhqzbtuwkf01Xio2VWz8+q9vKcKdA92UK9f6aE9pmHQby67Zw+MoCqcMv jenkins@master[jenkins@target1 .ssh]$
+[jenkins@target1 .ssh]$ exit
+logout
+[ansible@target1 ~]$ exit
+logout
+Connection to 10.10.10.101 closed.
+[ansible@master ~]$ sudo su - jenkins
+Last login: Fri Dec 11 07:46:48 UTC 2020 on pts/1
+[jenkins@master ~]$ pwd
+/var/lib/jenkins
+[jenkins@master ~]$ ls -l .ssh/
+ls: cannot open directory '.ssh/': Permission denied
+[jenkins@master ~]$ pwd
+/var/lib/jenkins
+[jenkins@master ~]$ ls -la
+total 72
+drwxr-xr-x. 16 jenkins jenkins 4096 Dec 11 05:31 .
+drwxr-xr-x. 33 root    root    4096 Nov 30 23:45 ..
+-rw-------.  1 jenkins jenkins  217 Dec 11 07:49 .bash_history
+drwxr-xr-x.  3 jenkins jenkins   17 Nov 30 23:45 .cache
+-rw-r--r--.  1 jenkins jenkins 1642 Dec  9 14:25 config.xml
+drwxr-xr-x.  3 jenkins jenkins   20 Dec  9 14:24 .groovy
+-rw-r--r--.  1 jenkins jenkins  156 Dec  9 14:20 hudson.model.UpdateCenter.xml
+-rw-r--r--.  1 jenkins jenkins  370 Dec  9 14:24 hudson.plugins.git.GitTool.xml
+-rw-------.  1 jenkins jenkins 1712 Nov 30 23:46 identity.key.enc
+drwxr-xr-x.  3 jenkins jenkins   19 Nov 30 23:46 .java
+-rw-r--r--.  1 jenkins jenkins    5 Dec  9 14:25 jenkins.install.InstallUtil.lastExecVersion
+-rw-r--r--.  1 jenkins jenkins    5 Dec  9 14:25 jenkins.install.UpgradeWizard.state
+drwxr-xr-x.  2 jenkins jenkins   89 Dec  9 14:37 jenkins-jobs
+-rw-r--r--.  1 jenkins jenkins  182 Dec  9 14:25 jenkins.model.JenkinsLocationConfiguration.xml
+-rw-r--r--.  1 jenkins jenkins  171 Nov 30 23:46 jenkins.telemetry.Correlator.xml
+drwxr-xr-x.  2 jenkins jenkins    6 Nov 30 23:46 jobs
+-rw-r--r--.  1 jenkins jenkins    0 Dec  9 14:20 .lastStarted
+drwxr-xr-x.  3 jenkins jenkins   19 Nov 30 23:46 logs
+-rw-r--r--.  1 jenkins jenkins  907 Dec  9 14:20 nodeMonitors.xml
+drwxr-xr-x.  2 jenkins jenkins    6 Nov 30 23:46 nodes
+-rw-r--r--.  1 jenkins jenkins   39 Dec 11 07:23 .owner
+drwxr-xr-x. 87 jenkins jenkins 8192 Dec  9 14:35 plugins
+-rw-r--r--.  1 jenkins jenkins  129 Dec  9 14:19 queue.xml.bak
+-rw-r--r--.  1 jenkins jenkins   64 Nov 30 23:46 secret.key
+-rw-r--r--.  1 jenkins jenkins    0 Nov 30 23:46 secret.key.not-so-secret
+drwx------.  4 jenkins jenkins  263 Dec  9 14:28 secrets
+d-w-rwxr-T.  2 jenkins jenkins   38 Dec 11 05:24 .ssh
+drwxr-xr-x.  2 jenkins jenkins  182 Dec  9 14:23 updates
+drwxr-xr-x.  2 jenkins jenkins   24 Nov 30 23:46 userContent
+drwxr-xr-x.  3 jenkins jenkins   57 Dec  9 14:25 users
+drwxr-xr-x.  2 jenkins jenkins    6 Dec  9 14:23 workflow-libs
+[jenkins@master ~]$ chmod 700 .ssh
+[jenkins@master ~]$ cd .ssh
+[jenkins@master .ssh]$ ls
+id_rsa  id_rsa.pub
+[jenkins@master .ssh]$ ls -la
+total 12
+drwx------.  2 jenkins jenkins   38 Dec 11 05:24 .
+drwxr-xr-x. 16 jenkins jenkins 4096 Dec 11 05:31 ..
+-rw-------.  1 jenkins jenkins 1823 Dec 11 05:24 id_rsa
+-rw-r--r--.  1 jenkins jenkins  396 Dec 11 05:24 id_rsa.pub
+[jenkins@master .ssh]$ ssh 10.10.10.101
+The authenticity of host '10.10.10.101 (10.10.10.101)' can't be established.
+ECDSA key fingerprint is SHA256:gDq8sWY9jgBwbJS4EuVOdxVv+FBOSqJX5Nzio5w0omI.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '10.10.10.101' (ECDSA) to the list of known hosts.
+Last login: Wed Dec  2 18:49:07 2020
+[jenkins@target1 ~]$ history
+    1  ls -la
+    2  cd .ssh
+    3  chmod 700 .ssh
+    4  cd .ssh
+    5  ls -la
+    6  chmod 600 authorized_keys
+    7  cat authorized_keys
+    8  exit
+    9  ls
+   10  pwd
+   11  ls -la
+   12  cd .ssh
+   13  ls -la
+   14  cat authorized_keys
+   15  exit
+   16  history
+[jenkins@target1 ~]$ exit
+logout
+Connection to 10.10.10.101 closed.
+[jenkins@master .ssh]$ history
+    1  la -la
+    2  ls -la
+    3  cd .ssh
+    4  ls
+    5  rm id_rsa
+    6  ls
+    7  rm id_rsa.pub
+    8  ls
+    9  ssh-keygen -t rsa
+   10  ls
+   11  cat id_rsa.pub
+   12  sudo su - ansible
+   13  sudo su -
+   14  exit
+   15  ssh 10.10.10.101
+   16  exit
+   17  ssh 10.10.10.101
+   18  cd .ssh
+   19  cdmod 700 .ssh
+   20  /etc
+   21  pwd
+   22  ssh 10.10.10.101
+   23  exit
+   24  pwd
+   25  ls -l .ssh/
+   26  pwd
+   27  ls -la
+   28  chmod 700 .ssh
+   29  cd .ssh
+   30  ls
+   31  ls -la
+   32  ssh 10.10.10.101
+   33  history
+[jenkins@master .ssh]$ cd ..
+[jenkins@master ~]$ exit
+logout
+[ansible@master ~]$ sudo su - jenkins
+Last login: Fri Dec 11 07:51:26 UTC 2020 on pts/1
+[jenkins@master ~]$ cat .ssh/id_rsa
+-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABFwAAAAdzc2gtcn
+NhAAAAAwEAAQAAAQEA22fF6YDu4vTUAFQzppWL8aXFLsct7Mmntus28IB356CHl0wZOxub
+oUEozEsZeUg6rjSPqORCe7qRSx9n6U1QlfCS8QcnRiTCpWnyUc6E14qhV41nGOaWVJME/n
+T/9VmrOakjQFE+4+V4EPUl5LjufcCU6WvYrGJKyfr2JA+Az9BxqdeYQlNR6dEcwlAvYk1U
+fQ1KMk7997OKoXcZ4cxZjGQhkBcQWi95GKWMK+eXYEl2TSP0IQbLL1Kp+Zz+pbmnhVauwV
+CUJ4VSqibSBP1imZJtTyd8soas27bsJH9NV4qNlVs/PqvbynCnQPdlCvX+mhPaZh0G8uu2
+cPjKAqnDLwAAA8gav+N3Gr/jdwAAAAdzc2gtcnNhAAABAQDbZ8XpgO7i9NQAVDOmlYvxpc
+Uuxy3syae26zbwgHfnoIeXTBk7G5uhQSjMSxl5SDquNI+o5EJ7upFLH2fpTVCV8JLxBydG
+JMKlafJRzoTXiqFXjWcY5pZUkwT+dP/1Was5qSNAUT7j5XgQ9SXkuO59wJTpa9isYkrJ+v
+YkD4DP0HGp15hCU1Hp0RzCUC9iTVR9DUoyTv33s4qhdxnhzFmMZCGQFxBaL3kYpYwr55dg
+SXZNI/QhBssvUqn5nP6luaeFVq7BUJQnhVKqJtIE/WKZkm1PJ3yyhqzbtuwkf01Xio2VWz
+8+q9vKcKdA92UK9f6aE9pmHQby67Zw+MoCqcMvAAAAAwEAAQAAAQEAqmuTnckJRP54gXzl
+1boJRnzFiY0qzebgv8M6HFsdR6w4RbvVSUUrgHiVUQHwWnVRJykqgTwzq9mBq8FMPDpSov
+SHnnI4/lHlYwjFMOfh5W4H3nK2JvBMyoqb8W49tnyc9B+9guLYn7oIpdtVQLCohsMEp76e
+QV/jybmGYQItwrwsXzrAvsPlthLmzQ9opI/+ePq0cXCyEuDvdWg2IpeQfq4HsmM/bJXcm5
+I8T7Kmc0c/x6Ab48hNHh7KvCEflJyF3uqkGHj9JnYyrF5XCpGz9/PR0YMF/c1wHQCDVwrl
+JrQz7l1u2R92OeeQR6aACpguQn80tuVlUfy/1wH0gXPW4QAAAIBRgkzrxrjfKvQdDVqer3
+hflgCZln66WBH0MKUOa1/fU5B2Kaq68E5EhbvWZyPRdTzFW3o3s2E1njJSUCGurhy6L+RA
+2iI4Un0lpNiicSsocVrAIzMADRf7l4ZOBjHkOubhNpsTZHGArrWqNkD4+bHApbA8JJJkG2
+nnZFqyf/9teQAAAIEA9xAvRE+Q95RUaNUqbqJGmKaVn2cVD9hBN4LzJfiQrMxTTGENwjqG
+7mqQKAdw8PkeOmTJTe202qbZtH1fUfbWb4JxXPaWM7sdxdmiUzsHJhI28hsK0SCiXzUQhQ
+tG2A3jRnkHUQRZU0Etj33j4a+mmAkMy+yX6a7sE/L8+xRAoD8AAACBAONXeb/q83QRPae7
+NWy540OipJlT1nRWmWxbn8pbjaRClxWaUdvxDaxm8xGq5fNXdwPuRMu1BXwMwplUaYIwjJ
+PB+qwm51j/mIgW5y1CdmHQt1EIsAWMmBmEthn59EeEF+dNAGDLjsIznBCE61Ai1rNw6QHh
+sdS0pGo+h29siSERAAAADmplbmtpbnNAbWFzdGVyAQIDBA==
+-----END OPENSSH PRIVATE KEY-----
+[jenkins@master ~]$

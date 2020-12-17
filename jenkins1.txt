@@ -1,0 +1,213 @@
+
+rohandiya@DESKTOP-UT80NO4 MINGW64 ~
+$ cd Vagrant
+
+rohandiya@DESKTOP-UT80NO4 MINGW64 ~/Vagrant
+$ ls -la
+total 24
+drwxr-xr-x 1 rohandiya 197121    0 Nov 28 14:07 ./
+drwxr-xr-x 1 rohandiya 197121    0 Dec  9 13:44 ../
+drwxr-xr-x 1 rohandiya 197121    0 Nov 28 14:07 .vagrant/
+-rw-r--r-- 1 rohandiya 197121 4746 Nov 28 15:31 Vagrantfile
+
+rohandiya@DESKTOP-UT80NO4 MINGW64 ~/Vagrant
+$ vagrant ssh master
+Last login: Tue Dec  1 00:24:42 2020 from 10.0.2.2
+[vagrant@master ~]$ ls -la
+total 1048
+drwx------. 4 vagrant vagrant     138 Nov 29 12:53 .
+drwxr-xr-x. 4 root    root         36 Nov 28 16:39 ..
+drwx------. 3 vagrant vagrant      17 Nov 29 12:53 .ansible
+-rw-------. 1 vagrant vagrant    1128 Dec  1 00:34 .bash_history
+-rw-r--r--. 1 vagrant vagrant      18 May 11  2019 .bash_logout
+-rw-r--r--. 1 vagrant vagrant     141 May 11  2019 .bash_profile
+-rw-r--r--. 1 vagrant vagrant     312 May 11  2019 .bashrc
+-rw-rw-r--. 1 vagrant vagrant 1055590 Nov 24 15:15 nginx-1.19.5.tar.gz
+drwx------. 2 vagrant vagrant      80 Nov 28 17:45 .ssh
+[vagrant@master ~]$ su -
+Password:
+su: Authentication failure
+[vagrant@master ~]$ sudo su -
+Last login: Tue Dec  1 00:25:14 UTC 2020 on pts/0
+Last failed login: Wed Dec  9 13:51:02 UTC 2020 on pts/0
+There was 1 failed login attempt since the last successful login.
+[root@master ~]# ls -la
+total 40
+dr-xr-x---.  3 root root  174 Nov 28 17:10 .
+dr-xr-xr-x. 18 root root  255 Nov 28 15:27 ..
+-rw-------.  1 root root 5239 Oct 25  2019 anaconda-ks.cfg
+drwx------.  3 root root   17 Nov 28 17:10 .ansible
+-rw-------.  1 root root  429 Dec  1 00:34 .bash_history
+-rw-r--r--.  1 root root   18 May 11  2019 .bash_logout
+-rw-r--r--.  1 root root  176 May 11  2019 .bash_profile
+-rw-r--r--.  1 root root  176 May 11  2019 .bashrc
+-rw-r--r--.  1 root root  100 May 11  2019 .cshrc
+-rw-------.  1 root root 5053 Oct 25  2019 original-ks.cfg
+-rw-r--r--.  1 root root  129 May 11  2019 .tcshrc
+[root@master ~]# su - ansible
+Last login: Tue Dec  1 00:24:52 UTC 2020 on pts/0
+[ansible@master ~]$ ls -la
+total 40
+drwx------. 7 ansible ansible  260 Nov 30 23:14 .
+drwxr-xr-x. 4 root    root      36 Nov 28 16:39 ..
+drwx------. 4 ansible ansible   27 Nov 29 13:16 .ansible
+-rw-rw-r--. 1 ansible ansible   66 Nov 29 13:27 apache.yml
+-rw-------. 1 ansible ansible 3865 Dec  1 00:33 .bash_history
+-rw-r--r--. 1 ansible ansible   18 May 11  2019 .bash_logout
+-rw-r--r--. 1 ansible ansible  141 May 11  2019 .bash_profile
+-rw-r--r--. 1 ansible ansible  312 May 11  2019 .bashrc
+-rw-rw-r--. 1 ansible ansible   51 Nov 28 16:57 .gitconfig
+drwxrwxr-x. 2 ansible ansible   19 Nov 30 22:37 inventory
+-rw-rw-r--. 1 ansible ansible   64 Nov 30 22:36 java.yml
+-rw-rw-r--. 1 ansible ansible   66 Nov 30 23:14 jenkins.yml
+-rw-rw-r--. 1 ansible ansible   85 Nov 29 21:36 mkdir.yml
+drwxrwxr-x. 6 ansible ansible   60 Nov 30 21:26 roles
+drwx------. 2 ansible ansible   80 Nov 30 22:51 .ssh
+-rw-rw-r--. 1 ansible ansible  203 Nov 29 13:17 test.yml
+drwxrwxr-x. 3 ansible ansible   54 Nov 28 16:55 vagrant
+[ansible@master ~]$ cat jenkins.yml
+- hosts: all
+  user: ansible
+  become: yes
+  roles:
+    - jenkins
+[ansible@master ~]$ cd roles
+[ansible@master roles]$ ls -la
+total 0
+drwxrwxr-x. 6 ansible ansible  60 Nov 30 21:26 .
+drwx------. 7 ansible ansible 260 Nov 30 23:14 ..
+drwxrwxr-x. 6 ansible ansible  65 Nov 29 13:20 apache
+drwxrwxr-x. 6 ansible ansible  65 Nov 30 21:32 java
+drwxrwxr-x. 6 ansible ansible  65 Nov 30 23:10 jenkins
+drwxrwxr-x. 6 ansible ansible  65 Nov 29 20:48 mkdir
+[ansible@master roles]$ cd jenkins
+[ansible@master jenkins]$ ls -la
+total 0
+drwxrwxr-x. 6 ansible ansible 65 Nov 30 23:10 .
+drwxrwxr-x. 6 ansible ansible 60 Nov 30 21:26 ..
+drwxrwxr-x. 2 ansible ansible  6 Nov 30 23:10 defaults
+drwxrwxr-x. 2 ansible ansible  6 Nov 30 23:10 files
+drwxrwxr-x. 2 ansible ansible 22 Dec  1 00:02 tasks
+drwxrwxr-x. 2 ansible ansible  6 Nov 30 23:10 templates
+[ansible@master jenkins]$ cd tasks
+[ansible@master tasks]$ ls -la
+total 4
+drwxrwxr-x. 2 ansible ansible  22 Dec  1 00:02 .
+drwxrwxr-x. 6 ansible ansible  65 Nov 30 23:10 ..
+-rw-rw-r--. 1 ansible ansible 712 Dec  1 00:02 main.yml
+[ansible@master tasks]$ cat main.yml
+   - name: Ensure Jenkins Repository is Installed
+     yum_repository:
+       name: jenkins
+       state: present
+       description: Official Jenkins Yum Repo
+       baseurl: http://pkg.jenkins.io/redhat
+       gpgkey: https://pkg.jenkins.io/redhat/jenkins.io.key
+       gpgcheck: yes
+       enabled: yes
+   - name: Ensure Jenkins is Installed
+     yum:
+       name: jenkins
+       update_cache: yes
+       state: present
+   - name: Enable and Start the Jenkins Service
+     service:
+       name: jenkins
+       enabled: yes
+       state: started
+  # - name: Open Firewall Port
+  #   firewalld:
+  #     zone: public
+  #     port: 8080/tcp
+  #     permanent: true
+  #     state: enabled
+  #     immediate: true
+[ansible@master tasks]$ ls -la
+total 4
+drwxrwxr-x. 2 ansible ansible  22 Dec  1 00:02 .
+drwxrwxr-x. 6 ansible ansible  65 Nov 30 23:10 ..
+-rw-rw-r--. 1 ansible ansible 712 Dec  1 00:02 main.yml
+[ansible@master tasks]$ cd ..
+[ansible@master jenkins]$ cd ..
+[ansible@master roles]$ cd ..
+[ansible@master ~]$ ls -la
+total 40
+drwx------. 7 ansible ansible  260 Nov 30 23:14 .
+drwxr-xr-x. 4 root    root      36 Nov 28 16:39 ..
+drwx------. 4 ansible ansible   27 Nov 29 13:16 .ansible
+-rw-rw-r--. 1 ansible ansible   66 Nov 29 13:27 apache.yml
+-rw-------. 1 ansible ansible 3865 Dec  1 00:33 .bash_history
+-rw-r--r--. 1 ansible ansible   18 May 11  2019 .bash_logout
+-rw-r--r--. 1 ansible ansible  141 May 11  2019 .bash_profile
+-rw-r--r--. 1 ansible ansible  312 May 11  2019 .bashrc
+-rw-rw-r--. 1 ansible ansible   51 Nov 28 16:57 .gitconfig
+drwxrwxr-x. 2 ansible ansible   19 Nov 30 22:37 inventory
+-rw-rw-r--. 1 ansible ansible   64 Nov 30 22:36 java.yml
+-rw-rw-r--. 1 ansible ansible   66 Nov 30 23:14 jenkins.yml
+-rw-rw-r--. 1 ansible ansible   85 Nov 29 21:36 mkdir.yml
+drwxrwxr-x. 6 ansible ansible   60 Nov 30 21:26 roles
+drwx------. 2 ansible ansible   80 Nov 30 22:51 .ssh
+-rw-rw-r--. 1 ansible ansible  203 Nov 29 13:17 test.yml
+drwxrwxr-x. 3 ansible ansible   54 Nov 28 16:55 vagrant
+[ansible@master ~]$ cd inventory/
+[ansible@master inventory]$ ls -la
+total 4
+drwxrwxr-x. 2 ansible ansible  19 Nov 30 22:37 .
+drwx------. 7 ansible ansible 260 Nov 30 23:14 ..
+-rw-rw-r--. 1 ansible ansible  98 Nov 30 22:37 hosts
+[ansible@master inventory]$ cat hosts
+10.10.10.101
+10.10.10.102
+10.10.10.100
+
+[LOCAL]
+10.10.10.100
+[APP]
+10.10.10.101
+[DB]
+10.10.10.102
+[ansible@master inventory]$ cd ..
+[ansible@master ~]$ ansible-playbook -i inventory/hosts -l LOCAL jenkins.yml
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [10.10.10.100]
+
+TASK [jenkins : Ensure Jenkins Repository is Installed] ************************
+ok: [10.10.10.100]
+
+TASK [jenkins : Ensure Jenkins is Installed] ***********************************
+ok: [10.10.10.100]
+
+TASK [jenkins : Enable and Start the Jenkins Service] **************************
+ok: [10.10.10.100]
+
+PLAY RECAP *********************************************************************
+10.10.10.100               : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+[ansible@master ~]$ cd /var/lib/jenkins/secrets/
+-bash: cd: /var/lib/jenkins/secrets/: Permission denied
+[ansible@master ~]$ sudo su -
+Last login: Wed Dec  9 13:51:10 UTC 2020 on pts/0
+[root@master ~]# cd /var/lib/jenkins/secrets
+[root@master secrets]# ls -la
+total 24
+drwx------.  4 jenkins jenkins  265 Nov 30 23:46 .
+drwxr-xr-x. 12 jenkins jenkins 4096 Dec  9 13:46 ..
+drwxr-xr-x.  2 jenkins jenkins   29 Nov 30 23:46 filepath-filters.d
+-rw-r-----.  1 jenkins jenkins   33 Nov 30 23:46 initialAdminPassword
+-rw-r--r--.  1 jenkins jenkins   32 Nov 30 23:46 jenkins.model.Jenkins.crumbSalt
+-rw-r--r--.  1 jenkins jenkins  256 Nov 30 23:46 master.key
+-rw-r--r--.  1 jenkins jenkins  272 Nov 30 23:46 org.jenkinsci.main.modules.instance_identity.InstanceIdentity.KEY
+-rw-r--r--.  1 jenkins jenkins    5 Nov 30 23:46 slave-to-master-security-kill-switch
+drwxr-xr-x.  2 jenkins jenkins   26 Nov 30 23:46 whitelisted-callables.d
+[root@master secrets]# cat initialAdminPassword
+091a82eda3e74d07ac8bece7ffbbf7b1
+[root@master secrets]# ^C
+[root@master secrets]#
+he below commands worked for me in Red Hat Linux and should work for Ubuntu also.
+To know the status of Jenkins: sudo service jenkins status.
+To start the Jenkins: sudo service jenkins start.
+To stop the Jenkins: sudo service jenkins stop.
+To restart the Jenkins: sudo service jenkins restart.

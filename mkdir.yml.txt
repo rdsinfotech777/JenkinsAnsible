@@ -1,0 +1,14 @@
+---                                
+  - name: Playbook                 
+    hosts: all                     
+    vars:                          
+      dir: kkjaji                  
+    user: ansible                  
+    tasks:                         
+      - name: create directory     
+        file:                      
+          name: "/tmp/{{ dir }}"   
+          state: directory         
+~                                  
+~
+[ansible@master ]  ansible-playbook -i inventory/hosts -l APP mkdir.yml                                  
